@@ -13,22 +13,27 @@ export default function Edit() {
         e.preventDefault();
 
         async function submitData() {
-            const formData = new FormData();
-            formData.append('description', description);
-            formData.append('text1', text1);
-            formData.append('text2', text2)
+            
+            let data = {
+                "description":description,
+                "text1":text1,
+                "text2":text2
+            }
 
-            const response = await fetch(url + 'updategateway/' + id, {
-                method: 'POST',
-                body: formData
+            const response = await fetch(url + 'gateway/updateGateway/' + id, {
+                method: 'PUT',
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             })
 
             if (response.ok === true) {
                 const data = await response.json();
-                if (data.status === 200) {
-                    return window.location = window.location.origin + '/#/gatewayList';
+                if (data.success == true) {
+                    return window.location = window.location.origin + '/gatewayList'
                 } else {
-                    alert(data.message);
+                    alert("Internal Server Error!");
                 }
             }
         }
@@ -37,17 +42,22 @@ export default function Edit() {
 
     React.useEffect(() => {
         async function fetchData() {
-            const response = await fetch(url + 'gatewayById/' + id, {
+            const response = await fetch(url + 'gateway/getSingleGateway/' + id, {
                 method: 'GET',
             })
 
             if (response.ok === true) {
                 const data = await response.json();
-                const gateway_detail = data.gateway_detail;
-                setGatewayMac(gateway_detail.gatewayMac);
-                setDescription(gateway_detail.description);
-                setText1(gateway_detail.text1);
-                setText2(gateway_detail.text2);
+                if (data.success == true) {
+                    const gateway_detail = data.data;
+                    setGatewayMac(gateway_detail.gatewayMac);
+                    setDescription(gateway_detail.description);
+                    setText1(gateway_detail.text1);
+                    setText2(gateway_detail.text2);
+                }else{
+                    alert("Oops something went wrong!")
+                }
+
             }
             else alert('Response not fetched properly');
         }

@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route exact path="/" name="This is a Home Page" element={<Home/>} />
           <Route exact path="/create/gateway" name="Create Gateway" element={<CreateGateway/>}/>
-          <Route exact path="/edit/gateway" name="Edit Gateway" element={<EditGateway/>}/>
+          <Route exact path="/edit/gateway/:id" name="Edit Gateway" element={<EditGateway/>}/>
           <Route exact path="/gatewayList" name="Gateway List" element={<GatewayList/>}/>
         </Routes>
         </BrowserRouter>

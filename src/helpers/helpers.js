@@ -1,2 +1,1 @@
-export const node_url = 'http://localhost:3005/'
-export const url = node_url + 'api/';
+export const url = 'http://45.32.153.102:3000/'

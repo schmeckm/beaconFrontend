@@ -12,31 +12,30 @@ export default function Create() {
         e.preventDefault();
 
         async function submitData() {
-            
-            const formData = new FormData();            
-            formData.append('gatewayMac', gatewayMac);
-            formData.append('description', description);
-            formData.append('text1', text1);
-            formData.append('text2', text2)
-
-            const response = await fetch(url + 'creategateway', {
+            let data = {
+                "gatewayMac":gatewayMac,
+                "description":description,
+                "text1":text1,
+                "text2":text2
+            }
+            const response = await fetch(url + 'gateway/addGateway', {
                 method: 'POST',
-                // headers: {
-                //     'Authorization': user?.token
-                // },
-                body: formData
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             })
 
             if (response.ok === true) {
                 const data = await response.json();
-                if (data.status === 200) {
+                if (data.success == true) {
                     setGatewayMac('');
                     setDescription('');
                     setText1('');
                     setText2('');
-                    
+                    alert("Gateway created successfully!")
                 } else {
-                    alert(data.message)
+                    alert("Oops something went wrong!")
                 }
             }
         }
