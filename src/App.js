@@ -10,12 +10,12 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" name="This is a Home Page" element={<Home/>} />
-          <Route exact path="/create/gateway" name="Create Gateway" element={<CreateGateway/>}/>
-          <Route exact path="/edit/gateway/:id" name="Edit Gateway" element={<EditGateway/>}/>
-          <Route exact path="/gatewayList" name="Gateway List" element={<GatewayList/>}/>
+          <Route exact path="/" name="This is a Home Page" element={<Home />} />
+          <Route exact path="/create/gateway" name="Create Gateway" element={<CreateGateway />} />
+          <Route exact path="/edit/gateway/:id" name="Edit Gateway" element={<EditGateway />} />
+          <Route exact path="/gatewayList" name="Gateway List" element={<GatewayList />} />
         </Routes>
-        </BrowserRouter>
+      </BrowserRouter>
     </div>
   );
 }
