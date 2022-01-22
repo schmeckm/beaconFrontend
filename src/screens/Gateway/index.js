@@ -77,7 +77,7 @@ export default function Index() {
   return (
     <section>
       <CustomModal modal={modal} setModal={setModal} deleteEntry={deleteEntry} />
-      <Link to='/create/gateway'>Create Gateway</Link>
+      <Link className="btn btn-primary mb-3 ml-3" to='/create/gateway'>Create Gateway</Link>
       <CCol xs="12" lg="12">
         <CCard>
           <CCardBody>
@@ -94,7 +94,7 @@ export default function Index() {
               scopedSlots={{
                 'action': (item) => (
                   <td>
-                    <Link to={`/edit/gateway/${item.id}`}><i class="fa fa-pencil" aria-hidden="true"></i></Link>
+                    <Link className="mr-2" to={`/edit/gateway/${item.id}`}><i class="fa fa-pencil" aria-hidden="true"></i></Link>
                     <i style={{ cursor: "pointer" }} onClick={() => showModal(item.id)} class="fa fa-trash" aria-hidden="true"></i>
                   </td>
                 )
