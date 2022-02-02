@@ -24,8 +24,24 @@ const _nav =  [
         name: 'Beacon',
         to: '/beaconList',
       },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Environment',
+        to: '/environmentList',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Zone',
+        to: '/zoneList',
+      },
     ]
   },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'System Settings',
+    to: '/systemSettings',
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
+  }
 ]
 
 export default _nav

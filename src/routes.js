@@ -47,6 +47,13 @@ const GatewayList = React.lazy(() => import('./screens/Gateway/index'));
 const CreateBeacon = React.lazy(() => import('./screens/Beacon/create'));
 const EditBeacon = React.lazy(() => import('./screens/Beacon/edit'));
 const BeaconList = React.lazy(() => import('./screens/Beacon/index'));
+const CreateEnvironment = React.lazy(() => import('./screens/Environment/create'));
+const EditEnvironment = React.lazy(() => import('./screens/Environment/edit'));
+const EnvironmentList = React.lazy(() => import('./screens/Environment/index'));
+const CreateZone = React.lazy(() => import('./screens/Zone/create'));
+const EditZone = React.lazy(() => import('./screens/Zone/edit'));
+const ZoneList = React.lazy(() => import('./screens/Zone/index'));
+const SystemSettings = React.lazy(() => import('./screens/SystemSettings/settings'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -93,10 +100,17 @@ const routes = [
   //Manual Routes
   { path: '/create/gateway', exact: true, name: 'Create Gateway', component: CreateGateway},
   { path: '/edit/gateway/:id', exact: true, name: 'Edit Gateway', component: EditGateway},
-  { path: '/gatewayList', exact: true, name: 'GatewayList', component: GatewayList},
+  { path: '/gatewayList', exact: true, name: 'Gateway List', component: GatewayList},
   { path: '/create/beacon', exact: true, name: 'Create Beacon', component: CreateBeacon},
   { path: '/edit/beacon/:id', exact: true, name: 'Edit Beacon', component: EditBeacon},
-  { path: '/beaconList', exact: true, name: 'BeaconList', component: BeaconList},
-  ];
+  { path: '/beaconList', exact: true, name: 'Beacon List', component: BeaconList},
+  { path: '/create/environment', exact: true, name: 'Create Environment', component: CreateEnvironment},
+  { path: '/edit/environment/:id', exact: true, name: 'Edit Environment', component: EditEnvironment},
+  { path: '/environmentList', exact: true, name: 'Environment List', component: EnvironmentList},
+  { path: '/create/zone', exact: true, name: 'Create Zone', component: CreateZone},
+  { path: '/edit/zone/:id', exact: true, name: 'Edit Zone', component: EditZone},
+  { path: '/zoneList', exact: true, name: 'Zone List', component: ZoneList},
+  { path: '/systemSettings', exact: true, name: 'System Settings', component: SystemSettings},
+];
 
 export default routes;
