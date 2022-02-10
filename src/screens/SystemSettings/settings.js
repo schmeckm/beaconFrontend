@@ -6,7 +6,7 @@ export default function Edit() {
     const [cronValue, setCronValue] = React.useState('');
     const [rssiDeleteTime, setRSSIDeleteTime] = React.useState('');
     const [fingerPrintDocuments, setFingerPrintDocuments] = React.useState('');
-    const [median, setMedian] = React.useState('');
+    const [median, setMedian] = React.useState(false);
     
     React.useEffect(() => {
         async function fetchData() {
@@ -163,7 +163,7 @@ export default function Edit() {
                     <div class="form-group row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Median:</label>
                         <div class="d-flex b-0 col-sm-1">
-                        <input defaultChecked={median} type="checkbox" onChange={e => setMedian(e.nativeEvent.target.checked)} class="form-control" id="inputPassword" />
+                        <input checked={median} type="checkbox" onChange={e => setMedian(!median)} id="inputPassword" />
                         </div>
                     </div>
                 </div>
