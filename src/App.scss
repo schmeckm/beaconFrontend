@@ -266,3 +266,19 @@ top: 70px;
         transform: translate(-50%,-50%);
     }
 }
+
+#grid-table{
+    width: 30%;
+    margin: 10px auto;
+    .col-md-4{
+        background-color: green;
+        color: white;
+        font-weight: bold;
+        border: 1px solid black;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+}

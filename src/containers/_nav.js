@@ -37,6 +37,42 @@ const _nav =  [
     ]
   },
   {
+    _tag: 'CSidebarNavDropdown',
+    name: 'Beacon Configuration',
+    route: '/base',
+    icon: 'cil-puzzle',
+    _children: [
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Get Position',
+        to: '/get-beacon-position',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Calculate Power',
+        to: '/calculate-tx-power',
+      },
+    ]
+  },
+  {
+    _tag: 'CSidebarNavDropdown',
+    name: 'Fingerprinting',
+    route: '/base',
+    icon: 'cil-puzzle',
+    _children: [
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Start/Stop Fingerprinting',
+        to: '/fingerprinting',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Calculate Power',
+        to: '/calculate-tx-power',
+      },
+    ]
+  },
+  {
     _tag: 'CSidebarNavItem',
     name: 'System Settings',
     to: '/systemSettings',

@@ -1,4 +1,6 @@
 import React from 'react';
+import CalculatePower from './screens/BeaconConfiguration/CalculatePower';
+import StartStopFingerprinting from './screens/Fingerprinting/StartStopFingerprinting';
 
 const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
 const Tables = React.lazy(() => import('./views/base/tables/Tables'));
@@ -54,6 +56,7 @@ const CreateZone = React.lazy(() => import('./screens/Zone/create'));
 const EditZone = React.lazy(() => import('./screens/Zone/edit'));
 const ZoneList = React.lazy(() => import('./screens/Zone/index'));
 const SystemSettings = React.lazy(() => import('./screens/SystemSettings/settings'));
+const GetPosition= React.lazy(()=>import('./screens/BeaconConfiguration/GetPosition'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -111,6 +114,9 @@ const routes = [
   { path: '/edit/zone/:id', exact: true, name: 'Edit Zone', component: EditZone},
   { path: '/zoneList', exact: true, name: 'Zone List', component: ZoneList},
   { path: '/systemSettings', exact: true, name: 'System Settings', component: SystemSettings},
+  { path: '/get-beacon-position', exact: true, name: 'Get Beacon Position', component: GetPosition},
+  { path: '/calculate-tx-power', exact: true, name: 'Calculate Tx Power', component: CalculatePower},
+  { path: '/fingerprinting', exact: true, name: 'Start Stop Fingerprinting', component: StartStopFingerprinting},
 ];
 
 export default routes;
