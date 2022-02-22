@@ -83,9 +83,12 @@ export default function StartStopFingerprinting() {
 
     function start(item, id) {
         if (currentZone) {
+            document.getElementById(currentactive).style.background = "green";
+            document.getElementById(id).style.background = "red";
             setCurrentActive(id)
             startPrinting(item.zoneId)
         }else{
+            document.getElementById(id).style.background = "red";
             setCurrentActive(id);
             startPrinting(item.zoneId)
         }

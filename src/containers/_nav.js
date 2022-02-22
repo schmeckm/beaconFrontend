@@ -67,8 +67,18 @@ const _nav =  [
       },
       {
         _tag: 'CSidebarNavItem',
-        name: 'Calculate Power',
-        to: '/calculate-tx-power',
+        name: 'Get ML Data Environment',
+        to: '/get-mldata-environment',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Get ML Data Beacon',
+        to: '/fingerprinting',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Get ML Data Zone',
+        to: '/fingerprinting',
       },
     ]
   },
