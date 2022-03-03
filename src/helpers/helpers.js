@@ -1,4 +1,4 @@
-export const url = 'http://45.32.153.102:3000/'
+export const url = 'http://45.32.153.102/api/'
 export const GST = ['0%', '8%', '12%', '18%'];
 
 export function formatDate(date_sting) {
