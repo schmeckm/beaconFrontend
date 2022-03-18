@@ -35,15 +35,15 @@ export default function GetPosition() {
                     method : 'POST',
                     body: JSON.stringify({
                         "beaconMac": currentBeacon.value,
-                        "startTime": start.toString(),
-                        "endTime": end.toString()
+                        "startTime": new Date(start).toISOString(),
+                        "endTime": new Date(end).toISOString()
                     })
                 });
 
                 if (response.ok == true){
                     const data = await response.json();
                     if (data.success == true){
-                        alert("Request submitted successfully!")
+                        
                     }
                 }else{
                     alert("Oops something went wrong!");
@@ -74,9 +74,9 @@ export default function GetPosition() {
                         </div>
                     </div>
                     <div class="d-flex justify-content-center create-catagory-btns">
-                        <button onClick={() => window.location.reload()} type="button" class="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
+                        <button onClick={() => window.history.back()} type="button" class="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
                             class="px-2 fa fa-times" aria-hidden="true"></i></button>
-                        <button type="submit" class="font-weight-bold m-3 py-2 px-4 btn btn-success">Save<i
+                        <button type="submit" class="font-weight-bold m-3 py-2 px-4 btn btn-success">Execute<i
                             class="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                     </div>
                 </form>
