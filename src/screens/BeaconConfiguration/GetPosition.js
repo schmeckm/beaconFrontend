@@ -35,8 +35,8 @@ export default function GetPosition() {
                     method : 'POST',
                     body: JSON.stringify({
                         "beaconMac": currentBeacon.value,
-                        "startTime": new Date(start).toISOString(),
-                        "endTime": new Date(end).toISOString()
+                        "startTime": new Date(start).toUTCString(),
+                        "endTime": new Date(end).toUTCString()
                     })
                 });
 
