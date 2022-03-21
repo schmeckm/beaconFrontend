@@ -1,6 +1,7 @@
 import { url } from '../../helpers/helpers';
 import React from 'react'
 import Select from 'react-select'
+import momentTz from 'moment-timezone'
 
 export default function GetPosition() {
     const [beacons, setBeacons] = React.useState([]);
@@ -32,20 +33,20 @@ export default function GetPosition() {
         if (currentBeacon) {
             async function send() {
                 const response = await fetch(url + 'beacon/getPosition', {
-                    method : 'POST',
+                    method: 'POST',
                     body: JSON.stringify({
                         "beaconMac": currentBeacon.value,
-                        "startTime": new Date(start).toUTCString(),
-                        "endTime": new Date(end).toUTCString()
+                        "startTime": momentTz.tz(start, "YYYY-MM-DD HH:mm:ss", 'Asia/Kolkata').toISOString(),
+                        "endTime": momentTz.tz(end, "YYYY-MM-DD HH:mm:ss", 'Asia/Kolkata').toISOString()
                     })
                 });
 
-                if (response.ok == true){
+                if (response.ok == true) {
                     const data = await response.json();
-                    if (data.success == true){
-                        
+                    if (data.success == true) {
+
                     }
-                }else{
+                } else {
                     alert("Oops something went wrong!");
                 }
             };
