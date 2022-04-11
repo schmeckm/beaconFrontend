@@ -33,6 +33,11 @@ export default function GetPosition() {
     function submit(e) {
         e.preventDefault();
 
+        // console.log('start date ', start)
+        // console.log('utc start date ', moment.utc(start).valueOf())
+        // console.log('end date ', end)
+        // console.log('utc end date ', moment.utc(end).valueOf())
+
         if (currentBeacon) {
             async function send() {
                 const response = await fetch(url + 'beacon/getPosition', {
