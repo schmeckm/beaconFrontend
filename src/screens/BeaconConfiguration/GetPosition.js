@@ -42,6 +42,9 @@ export default function GetPosition() {
             async function send() {
                 const response = await fetch(url + 'beacon/getPosition', {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify({
                         "beaconMac": currentBeacon.label,
                         "startTime": new Date(start).toISOString(),
