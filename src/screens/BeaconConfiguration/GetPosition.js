@@ -34,18 +34,18 @@ export default function GetPosition() {
         e.preventDefault();
 
         // console.log('start date ', start)
-        // console.log('utc start date ', moment.utc(start).valueOf())
+        // console.log('utc start date ', new Date(start).toISOString())
         // console.log('end date ', end)
-        // console.log('utc end date ', moment.utc(end).valueOf())
+        // console.log('utc end date ', new Date(end).toISOString())
 
         if (currentBeacon) {
             async function send() {
                 const response = await fetch(url + 'beacon/getPosition', {
                     method: 'POST',
                     body: JSON.stringify({
-                        "beaconMac": currentBeacon.value,
-                        "startTime": moment.utc(start).valueOf(),
-                        "endTime": moment.utc(end).valueOf()
+                        "beaconMac": currentBeacon.label,
+                        "startTime": new Date(start).toISOString(),
+                        "endTime": new Date(end).toISOString()
                     })
                 });
 
