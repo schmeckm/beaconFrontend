@@ -1,4 +1,4 @@
-import { CBadge, CCard, CCardBody, CCol, CDataTable } from '@coreui/react';
+import { CCard, CCardBody, CCol, CDataTable } from '@coreui/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { url } from '../../helpers/helpers';

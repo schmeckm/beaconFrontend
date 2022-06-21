@@ -14,9 +14,7 @@ export default function StartStopFingerprinting() {
 
     React.useEffect(() => {
         async function fetchData() {
-            const response = await fetch(url + 'dbBeacon/getAllBeacons', {
-                method: 'GET',
-            })
+            const response = await fetch(url + 'dbBeacon/getAllBeacons', { method: 'GET' })
 
             if (response.ok === true) {
                 const data = await response.json();
@@ -31,9 +29,7 @@ export default function StartStopFingerprinting() {
         fetchData();
 
         async function fetchEnvironment() {
-            const response = await fetch(url + 'environment/getAllEnvironments', {
-                method: 'GET',
-            })
+            const response = await fetch(url + 'environment/getAllEnvironments', { method: 'GET' })
 
             if (response.ok === true) {
                 const data = await response.json();
@@ -47,11 +43,8 @@ export default function StartStopFingerprinting() {
         }
         fetchEnvironment();
 
-
         async function fetchZone() {
-            const response = await fetch(url + 'zone/getAllZones', {
-                method: 'GET',
-            })
+            const response = await fetch(url + 'zone/getAllZones', { method: 'GET' })
 
             if (response.ok === true) {
                 const data = await response.json();
@@ -87,7 +80,7 @@ export default function StartStopFingerprinting() {
             document.getElementById(id).style.background = "red";
             setCurrentActive(id)
             startPrinting(item.zoneId)
-        }else{
+        } else {
             document.getElementById(id).style.background = "red";
             setCurrentActive(id);
             startPrinting(item.zoneId)
@@ -98,6 +91,9 @@ export default function StartStopFingerprinting() {
     async function startPrinting(zone) {
         const response = await fetch(url + 'fingerprint/startFingerPrinting', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 "environment": currentEnvironment.value,
                 "beaconId": currentBeacon.label,
@@ -105,9 +101,9 @@ export default function StartStopFingerprinting() {
             })
         });
 
-        if (response.ok == true){
+        if (response.ok == true) {
             const data = await response.json();
-            if (data.success == true){
+            if (data.success == true) {
                 alert(data.msg + ` for zoneID ${zone}`);
                 setCurrentZone(zone)
             }
