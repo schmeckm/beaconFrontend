@@ -52,12 +52,6 @@ export default function GetPosition() {
                 if (response.ok == true) {
                     const data = await response.json();
                     if (data.success == true) {
-                        // console.log({
-                        //     "beaconMac": currentBeacon.value,
-                        //     "startTime": moment.utc(start).valueOf(),
-                        //     "endTime": moment.utc(end).valueOf()
-                        // })
-                        // console.log(data)
                         setList(data.data.map((item, index) => {
                             return {
                                 '#': index + 1,
@@ -65,7 +59,7 @@ export default function GetPosition() {
                                 'beaconMac': item.beaconMac,
                                 'positionX': item.positionX,
                                 'positionY': item.positionY,
-                                'createdAt': moment(item.createdAt).format("MM-DD-YYYY")
+                                'createdAt': moment(item.createdAt).format("MM-DD-YYYY hh:mm:ss A")
                             }
                         }))
                     }
