@@ -1,18 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
+import io from 'socket.io-client';
 import { url } from 'src/helpers/helpers';
 
 export default function StartStopFingerprinting() {
-    const [environments, setEnvironments] = React.useState([]);
-    const [currentEnvironment, setCurrentEnvironment] = React.useState("");
-    const [beacons, setBeacons] = React.useState([]);
-    const [currentBeacon, setCurrentBeacon] = React.useState("");
-    const [zones, setZones] = React.useState([]);
-    const [table, setTable] = React.useState([]);
-    const [currentZone, setCurrentZone] = React.useState("");
-    const [currentactive, setCurrentActive] = React.useState("");
 
-    React.useEffect(() => {
+    const [socket] = useState(() => io(`http://localhost:4001`));
+    const [rssi, setRssi] = useState(null);
+    const [environments, setEnvironments] = useState([]);
+    const [currentEnvironment, setCurrentEnvironment] = useState("");
+    const [beacons, setBeacons] = useState([]);
+    const [currentBeacon, setCurrentBeacon] = useState("");
+    const [zones, setZones] = useState([]);
+    const [table, setTable] = useState([]);
+    const [currentZone, setCurrentZone] = useState("");
+    const [currentactive, setCurrentActive] = useState("");
+
+    useEffect(() => {
         async function fetchData() {
             const response = await fetch(url + 'dbBeacon/getAllBeacons', { method: 'GET' })
 
@@ -62,15 +66,19 @@ export default function StartStopFingerprinting() {
         fetchZone();
     }, [])
 
+    useEffect(() => {
+        socket.on("numberOfRssiFiles", (rssi) => {
+            console.log("RSSI # : ", rssi)
+            setRssi(rssi)
+        })
+
+        return () => socket.off('numberOfRssiFiles', () => setRssi(null));
+    }, []);
+
     function changeEnvironment(value) {
         setCurrentEnvironment(value);
         let updated_arr = [];
-        zones.map((item) => {
-            if (item.environment == value.value) {
-                updated_arr.push(item)
-            }
-        });
-
+        updated_arr = zones.filter((item) => item.environment === value.value);
         setTable(updated_arr)
     }
 
@@ -87,6 +95,9 @@ export default function StartStopFingerprinting() {
         }
     }
 
+    const getRSSIfromSocket = () => {
+        socket.emit("rssiFiles")
+    }
 
     async function startPrinting(zone) {
         const response = await fetch(url + 'fingerprint/startFingerPrinting', {
@@ -101,11 +112,12 @@ export default function StartStopFingerprinting() {
             })
         });
 
-        if (response.ok == true) {
+        if (response.ok === true) {
             const data = await response.json();
-            if (data.success == true) {
+            if (data.success === true) {
                 alert(data.msg + ` for zoneID ${zone}`);
                 setCurrentZone(zone)
+                getRSSIfromSocket()
             }
         }
     }
@@ -121,6 +133,10 @@ export default function StartStopFingerprinting() {
                     <div className='col-md-4 form-group'>
                         <label>Beacon</label>
                         <Select options={beacons} value={currentBeacon} onChange={setCurrentBeacon} />
+                    </div>
+                    <div className='col-md-4 form-group d-flex flex-column align-items-center justify-contents-center'>
+                        <label>RSSI</label>
+                        <p>{rssi ?? "Fingerprinting not started yet."}</p>
                     </div>
                 </div>
             </div>
