@@ -1,4 +1,5 @@
-export const url = 'http://45.32.153.102/api/'
+// export const url = 'http://45.32.153.102/api/'
+export const url = 'https://indoor-localization.net/api/'
 // export const url = 'http://localhost:3000/api/'
 export const GST = ['0%', '8%', '12%', '18%'];
 

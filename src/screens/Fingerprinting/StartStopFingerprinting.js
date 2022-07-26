@@ -5,7 +5,7 @@ import { url } from 'src/helpers/helpers';
 
 export default function StartStopFingerprinting() {
 
-    const [socket] = useState(() => io(`http://45.32.153.102/`));
+    const [socket] = useState(() => io(`https://indoor-localization.net/`));
     const [rssi, setRssi] = useState(null);
     const [environments, setEnvironments] = useState([]);
     const [currentEnvironment, setCurrentEnvironment] = useState("");
