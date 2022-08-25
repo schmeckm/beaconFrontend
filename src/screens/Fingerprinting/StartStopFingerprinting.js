@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { url } from "src/helpers/helpers";
+import io from "socket.io-client";
+const socket = io("https://indoor-localization.net/");
 
 export default function StartStopFingerprinting() {
   const [environments, setEnvironments] = React.useState([]);
@@ -12,7 +14,9 @@ export default function StartStopFingerprinting() {
   const [currentZone, setCurrentZone] = React.useState("");
   const [currentactive, setCurrentActive] = React.useState("");
   const [counter, setCounter] = useState(0);
-
+  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [rssi, setRssi] = useState(null);
+  const [showRssi, setShowRssi] = useState(false);
   React.useEffect(() => {
     async function fetchData() {
       const response = await fetch(url + "dbBeacon/getAllBeacons", {
@@ -100,14 +104,12 @@ export default function StartStopFingerprinting() {
       document.getElementById(id).style.background = "red";
       setCurrentActive(id);
       startPrinting(item.zoneId);
-      setCounter(0);
-      runTime(500);
+      setShowRssi(true);
     } else {
       document.getElementById(id).style.background = "red";
       setCurrentActive(id);
       startPrinting(item.zoneId);
-      setCounter(0);
-      runTime(500);
+      setShowRssi(true);
     }
   }
 
@@ -129,6 +131,31 @@ export default function StartStopFingerprinting() {
       }
     }
   }
+  useEffect(() => {
+    socket.on("connect", () => {
+      setIsConnected(true);
+    });
+
+    socket.on("disconnect", () => {
+      setIsConnected(false);
+    });
+    
+    return () => {
+      socket.off("connect");
+      socket.off("disconnect");
+      socket.off('rssi')
+    };
+  }, []);
+  useEffect(()=>{
+    setTimeout(() => {
+      socket.emit("rssiFiles");
+      socket.on("numberOfRssiFiles", (data) => {
+        console.log(data);
+        setRssi(data);
+      });
+    }, 1000);
+  },[rssi])
+  
   return (
     <div className="container create-page-main-section">
       <div className="p-sm-5 create-form-field">
@@ -151,7 +178,7 @@ export default function StartStopFingerprinting() {
           </div>
           <div className="col-md-4 form-group">
             <label className="mx-auto">RSSI</label>
-            <p>{counter}</p>
+            <p>{showRssi ? rssi : "RSSI not started yet"}</p>
           </div>
         </div>
       </div>
@@ -167,7 +194,6 @@ export default function StartStopFingerprinting() {
                 id={`${index}`}
                 onClick={() => start(item, index)}
                 key={index}
-                disabled={counter === 0 || counter === 30 ? false : true}
               >
                 {item.zoneId}
               </button>

@@ -39,7 +39,6 @@
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.34",
-    "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-app-polyfill": "^2.0.0",
@@ -50,10 +49,12 @@
     "react-select": "^4.0.2",
     "react-toastify": "^7.0.2",
     "redux": "4.0.5",
+    "socket.io-client": "^4.5.1",
     "xlsx": "^0.18.2"
   },
   "devDependencies": {
     "auto-changelog": "~2.2.1",
+    "node-sass": "^7.0.1",
     "react-scripts": "^4.0.1"
   },
   "scripts": {
