@@ -14,15 +14,22 @@ export default function StartStopFingerprinting() {
   const [currentZone, setCurrentZone] = React.useState('')
   const [currentactive, setCurrentActive] = React.useState('')
 
-  const fetchEnvironment = async () => {
+  const fetchData = async () => {
     try {
       const response = await beaconService.fetchData()
-      if (response.success) {
-        const data = response.data.map((item, index) => ({
-          value: item._id,
-          label: item.name
-        }))
-        setEnvironments(data)
+      if (response) {
+        setBeacons(response)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const fetchEnvironment = async () => {
+    try {
+      const response = await beaconService.fetchEnvironment()
+      if (response) {
+        setEnvironments(response)
       }
     } catch (error) {
       console.log(error)
@@ -30,41 +37,20 @@ export default function StartStopFingerprinting() {
   }
 
   const fetchZone = async () => {
-    // try {
-    //   const response = await beaconService.fetchData()
-    //   if (response.ok) {
-    //     const data = await response.json()
-    //     setEnvironments(
-    //       data.data.map((item, index) => ({
-    //         value: item._id,
-    //         label: item.name
-    //       }))
-    //     )
-    //   }
-    // } catch (error) {
-    //   console.log(error)
-    // }
-    // const response = await fetch(url + 'zone/getAllZones', {
-    //   method: 'GET'
-    // })
-    // if (response.ok === true) {
-    //   const data = await response.json()
-    //   setZones(
-    //     data.data.map((item, index) => {
-    //       return {
-    //         '#': index + 1,
-    //         id: item._id,
-    //         zoneId: item.zoneId,
-    //         description: item.description,
-    //         environment: item.environment
-    //       }
-    //     })
-    //   )
-    // }
+    try {
+      const response = await beaconService.fetchZone()
+      if (response) {
+        setZones(response)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
     fetchEnvironment()
+    fetchData()
+    fetchZone()
   }, [])
 
   function changeEnvironment(value) {

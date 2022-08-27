@@ -5,6 +5,41 @@ export const beaconService = {
     const response = await fetch(`${MAIN_URL}dbBeacon/getAllBeacons`, {
       method: 'GET'
     })
-    return response.json()
+
+    const responseData = await response.json()
+    if (responseData.success) {
+      return responseData.data.map((el) => ({
+        value: el._id,
+        label: el.beaconMac
+      }))
+    }
+  },
+  fetchEnvironment: async () => {
+    const response = await fetch(`${MAIN_URL}environment/getAllEnvironments`, {
+      method: 'GET'
+    })
+    const responseData = await response.json()
+    if (responseData.success) {
+      return responseData.data.map((el) => ({
+        value: el._id,
+        label: el.name
+      }))
+    }
+  },
+  fetchZone: async () => {
+    const response = await fetch(`${MAIN_URL}zone/getAllZones`, {
+      method: 'GET'
+    })
+
+    const responseData = await response.json()
+    if (responseData.success) {
+      return responseData.data.map((el, index) => ({
+        '#': index + 1,
+        id: el._id,
+        zoneId: el.zoneId,
+        description: el.description,
+        environment: el.environment
+      }))
+    }
   }
 }
