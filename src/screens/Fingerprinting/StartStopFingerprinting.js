@@ -2,6 +2,8 @@ import React from 'react'
 import Select from 'react-select'
 import { url } from 'src/helpers/helpers'
 
+import { beaconService } from 'src/services/beaconService'
+
 export default function StartStopFingerprinting() {
   const [environments, setEnvironments] = React.useState([])
   const [currentEnvironment, setCurrentEnvironment] = React.useState('')
@@ -12,48 +14,24 @@ export default function StartStopFingerprinting() {
   const [currentZone, setCurrentZone] = React.useState('')
   const [currentactive, setCurrentActive] = React.useState('')
 
-  const URL_X = React.useEffect(() => {
-    console.log('Hello')
+  React.useEffect(() => {
+    const fetchEnvironment = async () => {
+      const data = await beaconService.fetchData()
+      console.log(data)
 
-    const fetchData = () => {}
-
-    async function fetchData() {
-      const response = await fetch(url + 'dbBeacon/getAllBeacons', {
-        method: 'GET'
-      })
-
-      if (response.ok === true) {
-        const data = await response.json()
-        setBeacons(
-          data.data.map((item, index) => {
-            return {
-              value: item._id,
-              label: item.beaconMac
-            }
-          })
-        )
-      }
+      // if (response.ok === true) {
+      //   const data = await response.json()
+      //   setEnvironments(
+      //     data.data.map((item, index) => {
+      //       return {
+      //         value: item._id,
+      //         label: item.name
+      //       }
+      //     })
+      //   )
+      // }
     }
-    // fetchData();
-
-    async function fetchEnvironment() {
-      const response = await fetch(url + 'environment/getAllEnvironments', {
-        method: 'GET'
-      })
-
-      if (response.ok === true) {
-        const data = await response.json()
-        setEnvironments(
-          data.data.map((item, index) => {
-            return {
-              value: item._id,
-              label: item.name
-            }
-          })
-        )
-      }
-    }
-    // fetchEnvironment();
+    fetchEnvironment()
 
     async function fetchZone() {
       const response = await fetch(url + 'zone/getAllZones', {

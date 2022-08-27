@@ -58,7 +58,7 @@
     "react-scripts": "^4.0.1"
   },
   "scripts": {
-    "start": "PORT=8080 react-scripts start",
+    "start": "CHOKIDAR_USEPOLLING=true  PORT=8080 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:cov": "npm test -- --coverage --watchAll=false",
