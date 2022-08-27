@@ -7,14 +7,19 @@ const { Server } = require('socket.io')
 const app = express()
 const httpServer = createServer(app)
 
-const PRODUCTION_URL = 'http://45.32.153.102/api/'
+const PRODUCTION_URL = 'https://indoor-localization.net/api/'
 const ORIGIN_URL = 'http://localhost:3000'
 
-app.get('/api/dbBeacon/getAllBeacons', (req, res) => {
-  // const response = await fetch(`${PRODUCTION_URL}dbBeacon/getAllBeacons`, {
-  //   method: 'GET'
-  // })
-  res.send({ hello: 'hello' })
+app.get('/api/dbBeacon/getAllBeacons', async (req, res) => {
+  try {
+    const response = await fetch(`${PRODUCTION_URL}dbBeacon/getAllBeacons`, {
+      method: 'GET'
+    })
+
+    res.send({ hello: 'hello', response: 'data' })
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 // const io = new Server(httpServer, { cors: { origin: ORIGIN_URL } })

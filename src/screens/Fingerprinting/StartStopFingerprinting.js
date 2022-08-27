@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Select from 'react-select'
 import { url } from 'src/helpers/helpers'
 
@@ -14,46 +14,57 @@ export default function StartStopFingerprinting() {
   const [currentZone, setCurrentZone] = React.useState('')
   const [currentactive, setCurrentActive] = React.useState('')
 
-  React.useEffect(() => {
-    const fetchEnvironment = async () => {
-      const data = await beaconService.fetchData()
-      console.log(data)
-
-      // if (response.ok === true) {
-      //   const data = await response.json()
-      //   setEnvironments(
-      //     data.data.map((item, index) => {
-      //       return {
-      //         value: item._id,
-      //         label: item.name
-      //       }
-      //     })
-      //   )
-      // }
-    }
-    fetchEnvironment()
-
-    async function fetchZone() {
-      const response = await fetch(url + 'zone/getAllZones', {
-        method: 'GET'
-      })
-
-      if (response.ok === true) {
-        const data = await response.json()
-        setZones(
-          data.data.map((item, index) => {
-            return {
-              '#': index + 1,
-              id: item._id,
-              zoneId: item.zoneId,
-              description: item.description,
-              environment: item.environment
-            }
-          })
-        )
+  const fetchEnvironment = async () => {
+    try {
+      const response = await beaconService.fetchData()
+      if (response.success) {
+        const data = response.data.map((item, index) => ({
+          value: item._id,
+          label: item.name
+        }))
+        setEnvironments(data)
       }
+    } catch (error) {
+      console.log(error)
     }
-    // fetchZone();
+  }
+
+  const fetchZone = async () => {
+    // try {
+    //   const response = await beaconService.fetchData()
+    //   if (response.ok) {
+    //     const data = await response.json()
+    //     setEnvironments(
+    //       data.data.map((item, index) => ({
+    //         value: item._id,
+    //         label: item.name
+    //       }))
+    //     )
+    //   }
+    // } catch (error) {
+    //   console.log(error)
+    // }
+    // const response = await fetch(url + 'zone/getAllZones', {
+    //   method: 'GET'
+    // })
+    // if (response.ok === true) {
+    //   const data = await response.json()
+    //   setZones(
+    //     data.data.map((item, index) => {
+    //       return {
+    //         '#': index + 1,
+    //         id: item._id,
+    //         zoneId: item.zoneId,
+    //         description: item.description,
+    //         environment: item.environment
+    //       }
+    //     })
+    //   )
+    // }
+  }
+
+  useEffect(() => {
+    fetchEnvironment()
   }, [])
 
   function changeEnvironment(value) {
