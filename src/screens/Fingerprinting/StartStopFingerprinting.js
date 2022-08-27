@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Select from 'react-select'
-import { url } from 'src/helpers/helpers'
 
 import { beaconService } from 'src/services/beaconService'
 
@@ -47,11 +46,20 @@ export default function StartStopFingerprinting() {
     }
   }
 
-  useEffect(() => {
-    fetchEnvironment()
-    fetchData()
-    fetchZone()
-  }, [])
+  const startPrinting = async (zone) => {
+    const { value } = currentEnvironment
+    const { label } = currentBeacon
+
+    try {
+      const response = await beaconService.startPrinting(zone, { label, value })
+      if (response) {
+        alert(`${response.msg}: for zoneID ${zone}`)
+        setCurrentZone(zone)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   function changeEnvironment(value) {
     setCurrentEnvironment(value)
@@ -78,24 +86,11 @@ export default function StartStopFingerprinting() {
     }
   }
 
-  async function startPrinting(zone) {
-    const response = await fetch(url + 'fingerprint/startFingerPrinting', {
-      method: 'POST',
-      body: JSON.stringify({
-        environment: currentEnvironment.value,
-        beaconId: currentBeacon.label,
-        zoneId: zone
-      })
-    })
-
-    if (response.ok == true) {
-      const data = await response.json()
-      if (data.success == true) {
-        alert(data.msg + ` for zoneID ${zone}`)
-        setCurrentZone(zone)
-      }
-    }
-  }
+  useEffect(() => {
+    fetchEnvironment()
+    fetchData()
+    fetchZone()
+  }, [])
 
   return (
     <div className="container create-page-main-section">

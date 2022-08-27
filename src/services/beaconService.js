@@ -41,5 +41,17 @@ export const beaconService = {
         environment: el.environment
       }))
     }
+  },
+  startPrinting: async (zone, { label, value }) => {
+    const response = await fetch(`${MAIN_URL}fingerprint/startFingerPrinting`, {
+      method: 'POST',
+      body: JSON.stringify({
+        environment: value,
+        beaconId: label,
+        zoneId: zone
+      })
+    })
+    const responseData = await response.json()
+    return responseData.success
   }
 }
