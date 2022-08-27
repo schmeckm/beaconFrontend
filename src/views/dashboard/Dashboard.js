@@ -16,32 +16,31 @@ import CIcon from '@coreui/icons-react'
 
 import MainChartExample from '../charts/MainChartExample.js'
 
-import { io } from "socket.io-client";
-
+import { io } from 'socket.io-client'
 
 const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
 const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
+  React.useEffect(() => {
+    window.location = window.location.origin + '/#/'
+  }, [])
 
-  React.useEffect(()=>{
-    window.location = window.location.origin + '/#/';
-  },[])
-
-
-  React.useEffect(()=> {
-    const connectTo = async () => {
-      const socket = io("http://localhost:3000/")
-      socket.on("connect", () => {
-        console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-      });
-    }
-    connectTo()
-  },[])
+  React.useEffect(() => {
+    // const connectTo = async () => {
+    //   const socket = io("http://localhost:3000/")
+    //   socket.on("connect", () => {
+    //     console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    //   });
+    // }
+    // connectTo()
+  }, [])
 
   return (
     <>
-    <h4 id="traffic" className="card-title mb-0">Traffic</h4>
+      <h4 id="traffic" className="card-title mb-0">
+        Traffic
+      </h4>
 
       {/* <WidgetsDropdown />
       <CCard>
