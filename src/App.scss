@@ -271,14 +271,17 @@ top: 70px;
     width: 30%;
     margin: 10px auto;
     .col-md-4{
-        background-color: green;
+        background-color: rgb(28, 247, 28);
         color: white;
         font-weight: bold;
-        border: 1px solid black;
+        border: 1px solid white;
         height: 80px;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+    }
+    .col-md-4:hover{
+        background-color: green;
     }
 }

@@ -1,9 +1,9 @@
 import React from 'react'
-import { CBadge, CCard, CCardBody, CCol, CDataTable } from '@coreui/react';
+import { CCard, CCardBody, CCol, CDataTable } from '@coreui/react';
 import { url } from '../../helpers/helpers';
 import Select from 'react-select'
 import { ExportCSV } from '../../components/ExportCSV';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function GetMLDataEnvironment() {
 
@@ -35,7 +35,7 @@ export default function GetMLDataEnvironment() {
     function onFilter(){
         if (environment){
             async function send(){
-                alert(environment.value)
+                toast.info(`Showing result for Environment ${environment.value}`);
                 const response = await fetch(url +`/fingerprint/getMLDataByEnvironment/${environment.value}`);
                 const data = await response.json();
                 console.log(data)
@@ -47,7 +47,7 @@ export default function GetMLDataEnvironment() {
 
             send();
         }else{
-            alert("Please select environment")
+            toast.error("Please select environment")
         }
     }
 
@@ -83,6 +83,7 @@ export default function GetMLDataEnvironment() {
                     </CCardBody>
                 </CCard>
             </CCol>
+            <ToastContainer />
         </section>
     )
 }

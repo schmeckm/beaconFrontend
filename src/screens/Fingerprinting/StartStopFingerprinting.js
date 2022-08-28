@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { url } from "src/helpers/helpers";
-
+import { ToastContainer, toast } from 'react-toastify';
 export default function StartStopFingerprinting() {
   const [environments, setEnvironments] = React.useState([]);
   const [currentEnvironment, setCurrentEnvironment] = React.useState("");
@@ -89,12 +89,12 @@ export default function StartStopFingerprinting() {
   
 
   useEffect(()=>{
-    var interval = setInterval(() => setCounter((counter) => counter < 30 ? counter + 5 : counter), 5000);
+    var interval = setInterval(() => setCounter((counter) => counter < 30 ? counter + 5 : counter), 500);
     return () => clearInterval(interval);
   })
   function start(item, id) {
     if (currentZone) {
-      document.getElementById(currentactive).style.background = "green";
+      document.getElementById(currentactive).style.background = "#05cdfa";
       document.getElementById(id).style.background = "red";
       setCurrentActive(id);
       startPrinting(item.zoneId);
@@ -121,7 +121,7 @@ export default function StartStopFingerprinting() {
     if (response.ok == true) {
       const data = await response.json();
       if (data.success == true) {
-        
+        toast.success("Fingerprinting Started at zoneId "+ zone);
         setCurrentZone(zone);
       }
     }
@@ -152,6 +152,7 @@ export default function StartStopFingerprinting() {
             <p>{counter !== 30 ? counter : "RSSI not started yet"}</p>
           </div>
         </div>
+        <ToastContainer />
       </div>
 
       {/* box grid */}
