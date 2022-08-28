@@ -9,13 +9,13 @@ export default function GetMLDataEnvironment() {
 
     const fields = ['#', 'timestamp', 'environment', 'gateway1Mac', 'gateway1Rssi', 'gateway2Mac', 'gateway2Rssi', 'gateway3Mac','gateway3Rssi','beacon', 'zone_id'];
     const [environmentList, setEnvironmentList] = React.useState([]);
-    const [environment,setEnvironment] = React.useState("");
+    const [environment,setEnvironment] = React.useState({});
     const [list,setList] = React.useState([]);
 
     React.useEffect(() => {
 
         async function fetchData() {
-            const response = await fetch(url + 'environment/getAllEnvironments', {
+            const response = await fetch(url + '/environment/getAllEnvironments', {
                 method: 'GET',
             })
 
@@ -36,7 +36,7 @@ export default function GetMLDataEnvironment() {
         if (environment){
             async function send(){
                 alert(environment.value)
-                const response = await fetch(`http://45.32.153.102:3000/fingerprint/getMLDataByEnvironment  /${environment.value}`);
+                const response = await fetch(url +`/fingerprint/getMLDataByEnvironment/${environment.value}`);
                 const data = await response.json();
                 console.log(data)
                 if (data.success == true){

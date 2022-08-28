@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   return (
     <>
-      {/* <WidgetsDropdown />
+      <WidgetsDropdown />
       <CCard>
         <CCardBody>
           <CRow>
@@ -554,9 +554,9 @@ const Dashboard = () => {
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow> */}
+      </CRow>
     </>
   )
 }
 
-export default Dashboard
+export default Dashboard;
