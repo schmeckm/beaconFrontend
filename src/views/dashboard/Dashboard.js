@@ -20,11 +20,6 @@ const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
 const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
-
-  React.useEffect(()=>{
-    window.location = window.location.origin + '/#/';
-  },[])
-
   return (
     <>
       <WidgetsDropdown />
