@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { url } from "src/helpers/helpers";
-import io from "socket.io-client";
-const socket = io("https://indoor-localization.net/");
 
 export default function StartStopFingerprinting() {
   const [environments, setEnvironments] = React.useState([]);
@@ -14,10 +12,6 @@ export default function StartStopFingerprinting() {
   const [currentZone, setCurrentZone] = React.useState("");
   const [currentactive, setCurrentActive] = React.useState("");
   const [counter, setCounter] = useState(30);
-  const [isConnected, setIsConnected] = useState(socket.connected);
-  const [rssi, setRssi] = useState(null);
-  const [showRssi, setShowRssi] = useState(false);
-  const [time, setTime] = useState(1000);
   React.useEffect(() => {
     async function fetchData() {
       const response = await fetch(url + "dbBeacon/getAllBeacons", {
@@ -95,33 +89,21 @@ export default function StartStopFingerprinting() {
   
 
   useEffect(()=>{
-    var interval = setInterval(() => setCounter((counter) => counter < 30 ? counter + 1 : counter), 1000);
+    var interval = setInterval(() => setCounter((counter) => counter < 30 ? counter + 5 : counter), 5000);
     return () => clearInterval(interval);
   })
-  console.log(counter);
-  // const runTime = (id) => {
-  //   setTimeout(() => {
-  //     socket.emit("rssiFiles");
-  //     socket.on(id.toString(), (data) => {
-  //       console.log(data);
-  //       setRssi(data);
-  //     });
-  //   }, 1000);
-  //   };
   function start(item, id) {
     if (currentZone) {
       document.getElementById(currentactive).style.background = "green";
       document.getElementById(id).style.background = "red";
       setCurrentActive(id);
       startPrinting(item.zoneId);
-      setShowRssi(true);
       setCounter(0);
       
     } else {
       document.getElementById(id).style.background = "red";
       setCurrentActive(id);
       startPrinting(item.zoneId);
-      setShowRssi(true);
       setCounter(0);
     }
   }
@@ -139,26 +121,11 @@ export default function StartStopFingerprinting() {
     if (response.ok == true) {
       const data = await response.json();
       if (data.success == true) {
-        alert(data.msg + ` for zoneID ${zone}`);
+        
         setCurrentZone(zone);
       }
     }
   }
-  useEffect(() => {
-    socket.on("connect", () => {
-      setIsConnected(true);
-    });
-
-    socket.on("disconnect", () => {
-      setIsConnected(false);
-    });
-
-    return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-      socket.off("rssi");
-    };
-  }, []);
 
   return (
     <div className="container create-page-main-section">
@@ -182,7 +149,7 @@ export default function StartStopFingerprinting() {
           </div>
           <div className="col-md-4 form-group">
             <label className="mx-auto">RSSI</label>
-            <p>{showRssi ? counter : "RSSI not started yet"}</p>
+            <p>{counter !== 30 ? counter : "RSSI not started yet"}</p>
           </div>
         </div>
       </div>
