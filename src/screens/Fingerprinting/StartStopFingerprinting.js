@@ -11,7 +11,7 @@ export default function StartStopFingerprinting() {
   const [zones, setZones] = React.useState([])
   const [table, setTable] = React.useState([])
   const [currentZone, setCurrentZone] = React.useState('')
-  const [currentactive, setCurrentActive] = React.useState('')
+  const [activeId, setActivId] = React.useState('')
 
   const fetchData = async () => {
     try {
@@ -52,8 +52,9 @@ export default function StartStopFingerprinting() {
 
     try {
       const response = await beaconService.startPrinting(zone, { label, value })
+      console.log(response)
       if (response) {
-        alert(`${response.msg}: for zoneID ${zone}`)
+        alert(`TEST :for zoneID ${zone}`)
         setCurrentZone(zone)
       }
     } catch (error) {
@@ -61,29 +62,17 @@ export default function StartStopFingerprinting() {
     }
   }
 
-  function changeEnvironment(value) {
+  const changeEnvironment = (value) => {
     setCurrentEnvironment(value)
-    let updated_arr = []
-    zones.map((item) => {
-      if (item.environment == value.value) {
-        updated_arr.push(item)
-      }
-    })
-
-    setTable(updated_arr)
+    setTable(zones.filter((el) => el.environment === value.value))
   }
 
-  function start(item, id) {
-    if (currentZone) {
-      document.getElementById(currentactive).style.background = 'green'
-      document.getElementById(id).style.background = 'red'
-      setCurrentActive(id)
-      startPrinting(item.zoneId)
-    } else {
-      document.getElementById(id).style.background = 'red'
-      setCurrentActive(id)
-      startPrinting(item.zoneId)
-    }
+  const start = (item) => {
+    // if (currentZone) {
+    // }
+
+    setActivId(item.id)
+    // startPrinting(item.zoneId)
   }
 
   useEffect(() => {
@@ -120,16 +109,19 @@ export default function StartStopFingerprinting() {
         <>
           <h3 className="text-center my-3">Select Zone</h3>
           <div id="grid-table" className="row">
-            {table.map((item, index) => (
-              <div
-                className="col-md-4"
-                id={`${index}`}
-                onClick={() => start(item, index)}
-                key={index}
-              >
-                {item.zoneId}
-              </div>
-            ))}
+            {table.map((item, index) => {
+              const color = item.id === activeId ? 'red' : 'green'
+              return (
+                <div
+                  style={{ backgroundColor: color }}
+                  className="col-md-4"
+                  onClick={() => start(item)}
+                  key={index}
+                >
+                  {item.zoneId}
+                </div>
+              )
+            })}
           </div>
         </>
       )}
