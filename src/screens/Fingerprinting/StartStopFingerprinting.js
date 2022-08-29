@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 
 import { apiService } from 'src/services/apiService'
+import { socketService } from 'src/services/socketService'
 
 export default function StartStopFingerprinting() {
   const [environments, setEnvironments] = useState([])
@@ -65,6 +66,16 @@ export default function StartStopFingerprinting() {
     fetchEnvironment()
     fetchData()
     fetchZone()
+  }, [])
+
+  useEffect(() => {
+    socketService.socketOn('numberOfRssiFiles', (rssi) => {
+      console.log(rssi)
+    })
+
+    return () => {
+      return socketService.socketOff('numberOfRssiFiles', console.log('Hello'))
+    }
   }, [])
 
   return (
