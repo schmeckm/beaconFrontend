@@ -89,7 +89,7 @@ export default function StartStopFingerprinting() {
   
 
   useEffect(()=>{
-    var interval = setInterval(() => setCounter((counter) => counter < 30 ? counter + 5 : counter), 500);
+    var interval = setInterval(() => setCounter((counter) => counter < 30 ? counter + 5 : counter), 5000);
     return () => clearInterval(interval);
   })
   function start(item, id) {
