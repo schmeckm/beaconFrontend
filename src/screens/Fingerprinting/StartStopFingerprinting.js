@@ -74,7 +74,9 @@ export default function StartStopFingerprinting() {
     })
 
     return () => {
-      return socketService.socketOff('numberOfRssiFiles', console.log('Hello'))
+      return socketService.socketOff('numberOfRssiFiles', () =>
+        console.log('exit')
+      )
     }
   }, [])
 
