@@ -23,25 +23,27 @@ io.on('connection', (socket) => {
   socket.emit('connection', 'Hey, I am connected')
 })
 
-app.post('/startFingerPrinting', (req, res) => {
-  console.log('startFingerPrinting', req.body)
+app.post('/startFingerPrinting', async (req, res) => {
+  const { environment, beaconId, zoneId } = req.body
+  console.log(environment, beaconId, zoneId)
+
   // const response = await fetch({
   //   url: `${PRODUCTION_URL}fingerprint/startFingerPrinting`,
   //   method: 'POST',
   //   body: JSON.stringify({
-  //     environment: value,
-  //     beaconId: label,
-  //     zoneId: zone
+  //     environment,
+  //     beaconId,
+  //     zoneId
   //   })
   // })
   // if (response) {
   //   console.log(response)
   // }
-  // try {
-  //   res.send({ hello: 'hello', response: 'data' })
-  // } catch (error) {
-  //   console.log(error)
-  // }
+  try {
+    res.send({ success: true })
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 httpServer.listen(PORT)
