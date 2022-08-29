@@ -6,10 +6,14 @@ import { apiService } from 'src/services/apiService'
 export default function StartStopFingerprinting() {
   const [environments, setEnvironments] = useState([])
   const [currentEnvironment, setCurrentEnvironment] = useState('')
+
   const [beacons, setBeacons] = useState([])
   const [currentBeacon, setCurrentBeacon] = useState('')
+
   const [zones, setZones] = useState([])
   const [currentZone, setCurrentZone] = useState()
+
+  const [loading, setLoading] = useState('')
 
   const fetchData = async () => {
     try {
@@ -43,12 +47,16 @@ export default function StartStopFingerprinting() {
     const { label } = currentBeacon
 
     try {
+      setLoading('startPrinting')
       const response = await apiService.startPrinting({ zone, label, value })
       if (response) {
-        alert(`TEST :for zoneID ${zone}`)
+        // alert(`TEST :for zoneID ${zone}`)
         setCurrentZone(zone)
       }
+
+      setLoading('')
     } catch (error) {
+      setLoading('')
       console.log(error)
     }
   }
@@ -86,10 +94,16 @@ export default function StartStopFingerprinting() {
       {Boolean(currentEnvironment) && zones.length > 0 && (
         <>
           <h3 className="text-center my-3">Select Zone</h3>
-          <div id="grid-table" className="row">
+          <div
+            id="grid-table"
+            className="row"
+            style={{ opacity: loading === 'startPrinting' ? 0.7 : 1 }}
+          >
             {zones.map((item, index) => {
-              const color =
-                item.id === currentZone && currentZone.id ? 'red' : 'green'
+              const color = !(currentZone && currentZone.id === item.id)
+                ? 'green'
+                : 'red'
+
               return (
                 <div
                   style={{ backgroundColor: color }}
