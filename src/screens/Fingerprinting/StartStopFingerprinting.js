@@ -51,7 +51,6 @@ export default function StartStopFingerprinting() {
       setLoading('startPrinting')
       const response = await apiService.startPrinting({ zone, label, value })
       if (response) {
-        // alert(`TEST :for zoneID ${zone}`)
         setCurrentZone(zone)
       }
 
@@ -69,14 +68,10 @@ export default function StartStopFingerprinting() {
   }, [])
 
   useEffect(() => {
-    socketService.socketOn('numberOfRssiFiles', (rssi) => {
-      console.log(rssi)
-    })
+    socketService.on('connection', (value) => console.log(value))
 
     return () => {
-      return socketService.socketOff('numberOfRssiFiles', () =>
-        console.log('exit')
-      )
+      return socketService.off('connection', () => console.log('exit'))
     }
   }, [])
 

@@ -1,14 +1,9 @@
 import io from 'socket.io-client'
+import { BASE_URL_LOCAL } from '../config/index'
 
 export const socketService = {
-  socket: io('https://indoor-localization.net:3000'),
-  socketOn: async ({ event }, listener) => {
-    const socket = socketService.socket
-    console.log(socket)
-    return socket.on(event, listener)
-  },
-  socketOff: async ({ event }, listener) => {
-    const socket = socketService.socket
-    return socket.off(event, listener)
-  }
+  socket: io(BASE_URL_LOCAL),
+  on: (event, listener) => socketService.socket.on(event, listener),
+  off: (event, listener) => socketService.socket.off(event, listener),
+  emit: (event) => socketService.socket.emit(event)
 }

@@ -1,3 +1,4 @@
+import { BASE_URL_LOCAL } from 'src/config'
 import { queryService } from './queryService'
 
 export const apiService = {
@@ -41,15 +42,28 @@ export const apiService = {
     }
   },
   startPrinting: async ({ zone, label, value }) => {
+    const postBody = {
+      environment: value,
+      beaconId: label,
+      zoneId: zone
+    }
+
     const response = await queryService.getQuery({
-      endPoint: 'fingerprint/startFingerPrinting',
+      endPoint: 'startFingerPrinting',
       method: 'POST',
-      body: JSON.stringify({
-        environment: value,
-        beaconId: label,
-        zoneId: zone
-      })
+      baseUrl: BASE_URL_LOCAL,
+      body: JSON.stringify(postBody)
     })
+
+    // const response = await queryService.getQuery({
+    //   endPoint: 'fingerprint/startFingerPrinting',
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     environment: value,
+    //     beaconId: label,
+    //     zoneId: zone
+    //   })
+    // })
 
     return response.success
   }
