@@ -5,10 +5,15 @@ export const queryService = {
     endPoint,
     baseUrl = `${BASE_URL}/api/`,
     method = 'GET',
-    body = null
+    body = null,
+    headers = {}
   }) => {
     const url = `${baseUrl}${endPoint}`
-    const response = await fetch(url, { method, body })
+    const response = await fetch(url, {
+      method,
+      body,
+      headers
+    })
     return response.json()
   }
 }

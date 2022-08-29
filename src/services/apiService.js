@@ -42,28 +42,19 @@ export const apiService = {
     }
   },
   startPrinting: async ({ zone, label, value }) => {
-    const postBody = {
-      environment: value,
-      beaconId: label,
-      zoneId: zone
-    }
-
     const response = await queryService.getQuery({
       endPoint: 'startFingerPrinting',
       method: 'POST',
       baseUrl: BASE_URL_LOCAL,
-      body: JSON.stringify(postBody)
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        environment: value,
+        beaconId: label,
+        zoneId: zone
+      })
     })
-
-    // const response = await queryService.getQuery({
-    //   endPoint: 'fingerprint/startFingerPrinting',
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     environment: value,
-    //     beaconId: label,
-    //     zoneId: zone
-    //   })
-    // })
 
     return response.success
   }
