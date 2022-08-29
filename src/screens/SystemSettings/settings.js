@@ -1,6 +1,6 @@
 import React from 'react'
 import { url } from '../../helpers/helpers';
-
+import { ToastContainer, toast } from 'react-toastify';
 export default function Edit() {
     const [plexValue, setPlexValue] = React.useState('');
     const [cronValue, setCronValue] = React.useState('');
@@ -23,10 +23,10 @@ export default function Edit() {
                     setFingerPrintDocuments(settings_detail[0].fingerPrintDocuments);
                     setMedian(settings_detail[0].median);
                 }else{
-                    alert("Oops something went wrong!")
+                    toast.error("Oops something went wrong!")
                 }
             }
-            else alert('Response not fetched properly');
+            else toast.error('Response not fetched properly');
         }
         fetchData();
     }, [])
@@ -62,7 +62,7 @@ export default function Edit() {
                 if(data.success == true){                    
                   console.log('Plex value successfully updated');
                 }
-                else alert('Internal Server Error');
+                else toast.error('Internal Server Error');
             }
             
             const response1 = await fetch(url + 'systemSettings/addCronValue/', {
@@ -77,7 +77,7 @@ export default function Edit() {
                 if(data.success == true){
                     console.log('Cron value successfully updated');                    
                 }
-                else alert('Internal Server Error');
+                else toast.error('Internal Server Error');
             }
 
             const response2 = await fetch(url + 'systemSettings/rssiDeleteTime/', {
@@ -92,7 +92,7 @@ export default function Edit() {
                 if(data.success == true){
                     console.log('RSSI Delete Time successfully updated');                    
                 }
-                else alert('Internal Server Error');
+                else toast.error('Internal Server Error');
             }
 
             const response3 = await fetch(url + 'systemSettings/addFingerPrintDocuments/', {
@@ -108,7 +108,7 @@ export default function Edit() {
                 if(data.success == true){
                     console.log('Finger Print Documents successfully updated');                    
                 }
-                else alert('Internal Server Error');
+                else toast.error('Internal Server Error');
             }
             
             const response4 = await fetch(url + 'systemSettings/addMedian/', {
@@ -123,9 +123,9 @@ export default function Edit() {
                 const data = await response4.json();
                 if(data.success == true) {
                     console.log('Median Successfully updated');
-                    alert("Values Updated Successfully");
+                    toast.success("Values Updated Successfully");
                 }else {
-                    alert("Internal Server Error!");
+                    toast.error("Internal Server Error!");
                 }
             }
         }
@@ -174,6 +174,7 @@ export default function Edit() {
                         class="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     )
 }
