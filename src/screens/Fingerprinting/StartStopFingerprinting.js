@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 
-import { beaconService } from 'src/services/beaconService'
+import { apiService } from 'src/services/apiService'
 
 export default function StartStopFingerprinting() {
   const [environments, setEnvironments] = useState([])
@@ -9,12 +9,11 @@ export default function StartStopFingerprinting() {
   const [beacons, setBeacons] = useState([])
   const [currentBeacon, setCurrentBeacon] = useState('')
   const [zones, setZones] = useState([])
-  const [currentZone, setCurrentZone] = useState('')
-  const [activeId, setActivId] = useState('')
+  const [currentZone, setCurrentZone] = useState()
 
   const fetchData = async () => {
     try {
-      const response = await beaconService.fetchData()
+      const response = await apiService.fetchData()
       response && setBeacons(response)
     } catch (error) {
       console.log(error)
@@ -23,7 +22,7 @@ export default function StartStopFingerprinting() {
 
   const fetchEnvironment = async () => {
     try {
-      const response = await beaconService.fetchEnvironment()
+      const response = await apiService.fetchEnvironment()
       response && setEnvironments(response)
     } catch (error) {
       console.log(error)
@@ -32,8 +31,8 @@ export default function StartStopFingerprinting() {
 
   const fetchZone = async () => {
     try {
-      const response = await beaconService.fetchZone()
-      response && setZones
+      const response = await apiService.fetchZones()
+      response && setZones(response)
     } catch (error) {
       console.log(error)
     }
@@ -44,7 +43,7 @@ export default function StartStopFingerprinting() {
     const { label } = currentBeacon
 
     try {
-      const response = await beaconService.startPrinting(zone, { label, value })
+      const response = await apiService.startPrinting({ zone, label, value })
       if (response) {
         alert(`TEST :for zoneID ${zone}`)
         setCurrentZone(zone)
@@ -77,7 +76,7 @@ export default function StartStopFingerprinting() {
             <Select
               options={beacons}
               value={currentBeacon}
-              onChange={setCurrentBeacon}
+              onChange={(value) => setCurrentBeacon(value)}
             />
           </div>
         </div>
@@ -89,7 +88,8 @@ export default function StartStopFingerprinting() {
           <h3 className="text-center my-3">Select Zone</h3>
           <div id="grid-table" className="row">
             {zones.map((item, index) => {
-              const color = item.id === activeId ? 'red' : 'green'
+              const color =
+                item.id === currentZone && currentZone.id ? 'red' : 'green'
               return (
                 <div
                   style={{ backgroundColor: color }}
