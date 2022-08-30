@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 export default function Edit() {
     const [plexValue, setPlexValue] = React.useState('');
     const [cronValue, setCronValue] = React.useState('');
+    const [interval, setInterval] = React.useState('5');
     const [rssiDeleteTime, setRSSIDeleteTime] = React.useState('');
     const [fingerPrintDocuments, setFingerPrintDocuments] = React.useState('');
     const [median, setMedian] = React.useState(false);
@@ -48,6 +49,10 @@ export default function Edit() {
             }
             let Median = {
                 "median" : median
+            }
+
+            let Interval = {
+                "interval" : interval
             }
             console.log(median);
             const response = await fetch(url + 'systemSettings/addPlexValue/', {
@@ -128,6 +133,24 @@ export default function Edit() {
                     toast.error("Internal Server Error!");
                 }
             }
+
+            const response5 = await fetch(url + '/systemSettings/addGatewayInterval', {
+                method: 'POST',
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(Interval)
+            })
+
+            if (response5.ok === true) {
+                const data = await response5.json();
+                if(data.success == true) {
+                    console.log('Inverval value Successfully updated');
+                    
+                }else {
+                    toast.error("Internal Server Error!");
+                }
+            }
         }
         submitData();
     }
@@ -158,6 +181,12 @@ export default function Edit() {
                         <label for="inputPassword" class="col-sm-2 col-form-label">Finger Print Documents:<span className='required-label'>*</span></label>
                         <div class="d-flex align-items-sm-center col-sm-10">
                             <input required value={fingerPrintDocuments} onChange={e => setFingerPrintDocuments(e.target.value)} type="text" class="form-control" id="inputPassword" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Finger Print Interval:<span className='required-label'>*</span></label>
+                        <div class="d-flex align-items-sm-center col-sm-10">
+                            <input required value={interval} onChange={e => setInterval(e.target.value)} type="text" class="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div class="form-group row">

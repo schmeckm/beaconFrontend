@@ -11,7 +11,7 @@ export default function StartStopFingerprinting() {
   const [table, setTable] = React.useState([]);
   const [currentZone, setCurrentZone] = React.useState("");
   const [currentactive, setCurrentActive] = React.useState("");
-  const [counter, setCounter] = useState(1500);
+  const [counter, setCounter] = useState(31);
   React.useEffect(() => {
     async function fetchData() {
       const response = await fetch(url + "dbBeacon/getAllBeacons", {
@@ -89,7 +89,7 @@ export default function StartStopFingerprinting() {
   
 
   useEffect(()=>{
-    var interval = setInterval(() => setCounter((counter) => counter < 1500 ? counter + 1 : counter), 100);
+    var interval = setInterval(() => setCounter((counter) => counter < 31 ? counter + 1 : counter), 5000);
     return () => clearInterval(interval);
   })
   function start(item, id) {
@@ -117,7 +117,7 @@ export default function StartStopFingerprinting() {
         zoneId: zone,
       }),
     });
-
+    console.log(response);
     if (response.ok == true) {
       const data = await response.json();
       if (data.success == true) {
@@ -149,7 +149,7 @@ export default function StartStopFingerprinting() {
           </div>
           <div className="col-md-4 form-group">
             <label className="mx-auto">RSSI</label>
-            <p>{counter !== 1500 ? counter : "RSSI not started yet"}</p>
+            <p>{counter !== 31 ? counter : "RSSI not started yet"}</p>
           </div>
         </div>
         <ToastContainer />
@@ -166,7 +166,7 @@ export default function StartStopFingerprinting() {
                 id={`${index}`}
                 onClick={() => start(item, index)}
                 key={index}
-                disabled ={counter !== 1500 ? true : false}
+                disabled ={counter !== 31 ? true : false}
               >
                 {item.zoneId}
               </button>
