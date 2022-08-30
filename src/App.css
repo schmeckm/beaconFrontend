@@ -339,7 +339,7 @@
   margin: 10px auto;
 }
 
-#grid-table .col-md-4 {
+#grid-table .btn-grid{
   background-color: rgb(28, 247, 28);
   color: white;
   font-weight: bold;
