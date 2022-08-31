@@ -21,6 +21,7 @@ export default function GetMLDataEnvironment() {
 
             if (response.ok === true) {
                 const data = await response.json();
+                console.log(data);
                 setEnvironmentList(data.data.map((item, index) => {
                     return {
                         'value': item._id,

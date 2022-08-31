@@ -5,7 +5,7 @@ import { url } from '../../helpers/helpers';
 import CustomModal from '../../components/CustomModal';
 
 export default function Index() {
-  const fields = ['#', 'gatewayMac', 'gatewayFree', 'gatewayLoad', 'gatewayX', 'gatewayY', 'action'];
+  const fields = ['#', 'description','gatewayMac', 'gatewayFree', 'gatewayLoad', 'gatewayX', 'gatewayY', 'action'];
   const [gatewayList, setGatewayList] = React.useState([]);
   const [id, setId] = React.useState(null);
   const [modal, setModal] = React.useState(false);
@@ -23,6 +23,7 @@ export default function Index() {
           return {
             '#': index + 1,
             'id': item._id,
+            'description': item.description,
             'gatewayMac': item.gatewayMac,
             'gatewayFree': item.gatewayFree,
             'gatewayLoad': item.gatewayLoad,
@@ -56,6 +57,7 @@ export default function Index() {
               return {
                 '#': index + 1,
                 'id': item._id,
+                'description': item.description,
                 'gatewayMac': item.gatewayMac,
                 'gatewayFree': item.gatewayFree,
                 'gatewayLoad': item.gatewayLoad,

@@ -30,7 +30,6 @@ export default function GetPosition() {
 
     function submit(e) {
         e.preventDefault();
-
         if (currentBeacon) {
             async function send() {
                 const response = await fetch(url + 'beacon/getPosition', {
