@@ -34,10 +34,10 @@ export default function GetMLDataEnvironment() {
     }, [])
 
     function onFilter(){
+        console.log(environment);
         if (environment){
             async function send(){
-                toast.info(`Showing result for Environment ${environment.value}`);
-                const response = await fetch(url +`/fingerprint/getMLDataByEnvironment/${environment.value}`);
+                const response = await fetch(url +`fingerprint/getMLDataByEnvironment/${environment.value}`);
                 const data = await response.json();
                 console.log(data)
                 if (data.success == true){
@@ -50,6 +50,10 @@ export default function GetMLDataEnvironment() {
                         modified_data.push({...item, Date, Time});
                     }
                     setList(modified_data);
+                    toast.info(`Showing result for Environment ${environment.value}`);
+                }
+                else{
+                    toast.error(`An error occured for Environment ${environment.value}`); 
                 }
             };
 
