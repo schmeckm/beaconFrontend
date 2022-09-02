@@ -88,8 +88,8 @@ export default function Index() {
               scopedSlots={{
                 'action': (item) => (
                   <td>
-                    <Link className="mr-2" to={`/edit/beacon/${item.id}`}><i class="fa fa-pencil" aria-hidden="true"></i></Link>
-                    <i style={{ cursor: "pointer" }} onClick={() => showModal(item.id)} class="fa fa-trash" aria-hidden="true"></i>
+                    <Link className="mr-2" to={`/edit/beacon/${item.id}`}><i className="fa fa-pencil" aria-hidden="true"></i></Link>
+                    <i style={{ cursor: "pointer" }} onClick={() => showModal(item.id)} className="fa fa-trash" aria-hidden="true"></i>
                   </td>
                 )
               }

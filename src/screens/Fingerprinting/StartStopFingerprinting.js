@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { url } from "src/helpers/helpers";
 import { ToastContainer, toast } from 'react-toastify';
+import axios from "axios";
 export default function StartStopFingerprinting() {
   const [environments, setEnvironments] = React.useState([]);
   const [currentEnvironment, setCurrentEnvironment] = React.useState("");
@@ -89,7 +90,7 @@ export default function StartStopFingerprinting() {
   
 
   useEffect(()=>{
-    var interval = setInterval(() => setCounter((counter) => counter < 31 ? counter + 1 : counter), 5000);
+    var interval = setInterval(() => setCounter((counter) => counter < 31 ? counter + 1 : counter), 2000);
     return () => clearInterval(interval);
   })
   function start(item, id) {
@@ -108,24 +109,22 @@ export default function StartStopFingerprinting() {
     }
   }
 
-  async function startPrinting(zone) {
-    const response = await fetch(url + "fingerprint/startFingerPrinting", {
-      method: "POST",
-      body: JSON.stringify({
-        environment: currentEnvironment.value,
-        beaconId: currentBeacon.label,
-        zoneId: zone,
-      }),
+  const startPrinting = async (zone) => {
+    axios.post(url + "fingerprint/startFingerPrinting", {
+      environment: currentEnvironment?.value,
+      beaconId: currentBeacon.label,
+      zoneId: zone
+    })
+    .then(function (response) {
+      console.log(response);
+      toast.info("Rssi value counting started for zone "+ zone);
+    })
+    .catch(function (error) {
+      toast.error(error);
     });
-    console.log(response);
-    if (response.ok == true) {
-      const data = await response.json();
-      if (data.success == true) {
-        toast.success("Fingerprinting Started at zoneId "+ zone);
-        setCurrentZone(zone);
-      }
-    }
+    
   }
+
 
   return (
     <div className="container create-page-main-section">

@@ -1,14 +1,17 @@
 import { url } from '../../helpers/helpers';
 import React from 'react'
 import Select from 'react-select'
-import momentTz from 'moment-timezone'
 import moment from 'moment';
 
+import { CCard, CCardBody, CCol, CDataTable } from '@coreui/react';
 export default function GetPosition() {
+    const fields = ['#', 'beaconMac', 'positionX', 'positionY', 'createdAt'];
     const [beacons, setBeacons] = React.useState([]);
     const [currentBeacon, setCurrentBeacon] = React.useState("");
     const [start, setStart] = React.useState("");
     const [end, setEnd] = React.useState("");
+    const [list, setList] = React.useState([]);
+
     React.useEffect(() => {
         async function fetchData() {
             const response = await fetch(url + 'dbBeacon/getAllBeacons', {
@@ -17,6 +20,7 @@ export default function GetPosition() {
 
             if (response.ok === true) {
                 const data = await response.json();
+
                 setBeacons(data.data.map((item, index) => {
                     return {
                         'value': item._id,
@@ -30,26 +34,34 @@ export default function GetPosition() {
 
     function submit(e) {
         e.preventDefault();
+
         if (currentBeacon) {
             async function send() {
                 const response = await fetch(url + 'beacon/getPosition', {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify({
-                        "beaconMac": currentBeacon.value,
-                        "startTime": moment.utc(start).format(),
-                        "endTime": moment.utc(end).format()
+                        "beaconMac": currentBeacon.label,
+                        "startTime": new Date(start).toISOString(),
+                        "endTime": new Date(end).toISOString()
                     })
                 });
 
                 if (response.ok == true) {
                     const data = await response.json();
                     if (data.success == true) {
-                        console.log({
-                            "beaconMac": currentBeacon.value,
-                            "startTime": moment.utc(start).format(),
-                            "endTime": moment.utc(end).format()
-                        })
-                        console.log(data)
+                        setList(data.data.map((item, index) => {
+                            return {
+                                '#': index + 1,
+                                'id': item._id,
+                                'beaconMac': item.beaconMac,
+                                'positionX': item.positionX,
+                                'positionY': item.positionY,
+                                'createdAt': moment(item.createdAt).format("MM-DD-YYYY hh:mm:ss A")
+                            }
+                        }))
                     }
                 } else {
                     alert("Oops something went wrong!");
@@ -62,6 +74,7 @@ export default function GetPosition() {
     }
 
     return (
+        <div>
         <div className="container create-page-main-section">
             <div className='p-sm-5 create-form-field'>
                 <form onSubmit={e => submit(e)}>
@@ -79,14 +92,34 @@ export default function GetPosition() {
                             <input type="datetime-local" className='form-control' value={end} onChange={e => setEnd(e.target.value)} required />
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center create-catagory-btns">
-                        <button onClick={() => window.history.back()} type="button" class="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
-                            class="px-2 fa fa-times" aria-hidden="true"></i></button>
-                        <button type="submit" class="font-weight-bold m-3 py-2 px-4 btn btn-success">Execute<i
-                            class="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
+                    <div className="d-flex justify-content-center create-catagory-btns">
+                        <button onClick={() => window.history.back()} type="button" className="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
+                            className="px-2 fa fa-times" aria-hidden="true"></i></button>
+                        <button type="submit" className="font-weight-bold m-3 py-2 px-4 btn btn-success">Execute<i
+                            className="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                     </div>
                 </form>
             </div>
         </div>
+        <div className="container">
+            <CCol className="mt-2" xs="12" lg="12">
+                <CCard>
+                    <CCardBody>
+                        <CDataTable
+                            items={list}
+                            fields={fields}
+                            columnFilter
+                            tableFilter
+                            itemsPerPageSelect
+                            itemsPerPage={5}
+                            hover
+                            sorter
+                            pagination
+                        />
+                    </CCardBody>
+                </CCard>
+            </CCol>
+        </div>
+    </div>
     )
 }

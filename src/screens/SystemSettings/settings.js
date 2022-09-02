@@ -159,48 +159,48 @@ export default function Edit() {
         <div className="container create-page-main-section">
             <form onSubmit={e => handleSubmit(e)}>
                 <div className='p-sm-5 create-form-field'>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Plex Value:<span className='required-label'>*</span></label>
-                        <div class="d-flex align-items-sm-center col-sm-10">
-                            <input required value={plexValue} onChange={e => setPlexValue(e.target.value)} type="text" class="form-control" id="inputPassword" />
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">Plex Value:<span className='required-label'>*</span></label>
+                        <div className="d-flex align-items-sm-center col-sm-10">
+                            <input required value={plexValue} onChange={e => setPlexValue(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Cron Value:<span className='required-label'>*</span></label>
-                        <div class="d-flex align-items-sm-center col-sm-10">
-                            <input required value={cronValue} onChange={e => setCronValue(e.target.value)} type="text" class="form-control" id="inputPassword" />
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">Cron Value:<span className='required-label'>*</span></label>
+                        <div className="d-flex align-items-sm-center col-sm-10">
+                            <input required value={cronValue} onChange={e => setCronValue(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">RSSI Delete Time:<span className='required-label'>*</span></label>
-                        <div class="d-flex align-items-sm-center col-sm-10">
-                            <input required value={rssiDeleteTime} onChange={e => setRSSIDeleteTime(e.target.value)} type="text" class="form-control" id="inputPassword" />
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">RSSI Delete Time:<span className='required-label'>*</span></label>
+                        <div className="d-flex align-items-sm-center col-sm-10">
+                            <input required value={rssiDeleteTime} onChange={e => setRSSIDeleteTime(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Finger Print Documents:<span className='required-label'>*</span></label>
-                        <div class="d-flex align-items-sm-center col-sm-10">
-                            <input required value={fingerPrintDocuments} onChange={e => setFingerPrintDocuments(e.target.value)} type="text" class="form-control" id="inputPassword" />
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">Finger Print Documents:<span className='required-label'>*</span></label>
+                        <div className="d-flex align-items-sm-center col-sm-10">
+                            <input required value={fingerPrintDocuments} onChange={e => setFingerPrintDocuments(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Finger Print Interval:<span className='required-label'>*</span></label>
-                        <div class="d-flex align-items-sm-center col-sm-10">
-                            <input required value={interval} onChange={e => setInterval(e.target.value)} type="text" class="form-control" id="inputPassword" />
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">Finger Print Interval:<span className='required-label'>*</span></label>
+                        <div className="d-flex align-items-sm-center col-sm-10">
+                            <input required value={interval} onChange={e => setInterval(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Median:</label>
-                        <div class="d-flex b-0 col-sm-1">
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">Median:</label>
+                        <div className="d-flex b-0 col-sm-1">
                         <input checked={median} type="checkbox" onChange={e => setMedian(!median)} id="inputPassword" />
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center create-catagory-btns">
-                    <button onClick={() => window.location.reload()} type="button" class="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
-                        class="px-2 fa fa-times" aria-hidden="true"></i></button>
-                    <button type="submit" class="font-weight-bold m-3 py-2 px-4 btn btn-success">Save<i
-                        class="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
+                <div className="d-flex justify-content-center create-catagory-btns">
+                    <button onClick={() => window.location.reload()} type="button" className="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
+                        className="px-2 fa fa-times" aria-hidden="true"></i></button>
+                    <button type="submit" className="font-weight-bold m-3 py-2 px-4 btn btn-success">Save<i
+                        className="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                 </div>
             </form>
             <ToastContainer />
