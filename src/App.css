@@ -4,6 +4,24 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+.reset-btn{
+  background-color: rgba(242, 44, 41, 0.933);
+  color: white;
+  padding: 8px 20px;
+  border: 1px solid white;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.reset-btn:hover{
+  background-color: white;
+  color: rgba(242, 44, 41, 0.933);
+  border: 1px solid rgba(242, 44, 41, 0.933);
+}
+.reset-btn:active{
+  background-color: red;
+  color: white;
+  border: 1px solid red;
+}
 
 .required-label {
   color: red;
