@@ -90,7 +90,7 @@ export default function CalculatePower() {
                     <div className="d-flex justify-content-center create-catagory-btns">
                         <button onClick={() => window.history.back()} type="button" className="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
                             className="px-2 fa fa-times" aria-hidden="true"></i></button>
-                        <button type="submit" className="font-weight-bold m-3 py-2 px-4 btn btn-success">Save<i
+                        <button type="submit" className="font-weight-bold m-3 py-2 px-4 btn btn-success">Executed<i
                             className="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                     </div>
                 </form>
