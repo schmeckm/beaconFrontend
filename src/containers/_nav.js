@@ -6,13 +6,13 @@ const _nav =  [
     _tag: 'CSidebarNavItem',
     name: 'Dashboard',
     to: '/dashboard',
-    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
+    icon: <CIcon name="cil-home" customClasses="c-sidebar-nav-icon"/>,
   },
   {
     _tag: 'CSidebarNavDropdown',
     name: 'Masters',
     route: '/base',
-    icon: 'cil-puzzle',
+    icon: 'cil-apps',
     _children: [
       {
         _tag: 'CSidebarNavItem',
@@ -40,7 +40,7 @@ const _nav =  [
     _tag: 'CSidebarNavDropdown',
     name: 'Beacon Configuration',
     route: '/base',
-    icon: 'cil-puzzle',
+    icon: 'cil-speedometer',
     _children: [
       {
         _tag: 'CSidebarNavItem',
@@ -58,7 +58,7 @@ const _nav =  [
     _tag: 'CSidebarNavDropdown',
     name: 'Fingerprinting',
     route: '/base',
-    icon: 'cil-puzzle',
+    icon: 'cil-fingerprint',
     _children: [
       {
         _tag: 'CSidebarNavItem',
@@ -84,9 +84,15 @@ const _nav =  [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'Get Beacon Lookup',
+    to: '/beacon-positions-lookup',
+    icon: <CIcon name="cil-map" customClasses="c-sidebar-nav-icon"/>,
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'System Settings',
     to: '/systemSettings',
-    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
+    icon: <CIcon name="cil-settings" customClasses="c-sidebar-nav-icon"/>,
   }
 ]
 

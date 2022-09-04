@@ -2,6 +2,7 @@ import React from 'react';
 import CalculatePower from './screens/BeaconConfiguration/CalculatePower';
 import GetMLDataEnvironment from './screens/Fingerprinting/GetMLDataEnvironment';
 import StartStopFingerprinting from './screens/Fingerprinting/StartStopFingerprinting';
+import GetBeaconPositions from './screens/GetBeaconPostions/GetBeaconPositions';
 
 const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
 const Tables = React.lazy(() => import('./views/base/tables/Tables'));
@@ -119,6 +120,7 @@ const routes = [
   { path: '/calculate-tx-power', exact: true, name: 'Calculate Tx Power', component: CalculatePower},
   { path: '/fingerprinting', exact: true, name: 'Start Stop Fingerprinting', component: StartStopFingerprinting},
   { path: '/get-mldata-environment', exact: true, name: 'Get ML Data By Environment', component: GetMLDataEnvironment},
+  { path: '/beacon-positions-lookup', exact: true, name: 'Beacon Positions Lookup', component: GetBeaconPositions},
 ];
 
 export default routes;
