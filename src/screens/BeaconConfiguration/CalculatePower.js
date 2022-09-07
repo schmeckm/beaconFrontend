@@ -1,6 +1,7 @@
 import { url } from '../../helpers/helpers';
 import React from 'react'
 import Select from 'react-select'
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function CalculatePower() {
     const [beacons, setBeacons] = React.useState([]);
@@ -26,6 +27,7 @@ export default function CalculatePower() {
         }
         fetchData();
 
+        console.log(observations);
         async function fetchDataGateway() {
             const response = await fetch(url + 'gateway/getAllGateways', {
                 method: 'GET',
@@ -60,16 +62,19 @@ export default function CalculatePower() {
                 if (response.ok == true) {
                     const data = await response.json();
                     if(data.success == true){
-                        alert("data fetch successfully!");
+                        toast.info("data fetch successfully!");
+                        console.log(data);
+                        console.log(currentBeacon);
+                        console.log(currentGateway);
                         setObservations(data.data.observations)
                     }
                 } else {
-                    alert("Oops something went wrong!");
+                    toast.error("Oops something went wrong!");
                 }
             };
             send()
         } else {
-            alert("Please select beacon & gateway");
+            toast.error("Please select beacon & gateway");
         }
     }
 
@@ -107,6 +112,7 @@ export default function CalculatePower() {
                     <td>{item}</td>
                 </tr>)}
                 </table>}
+                <ToastContainer />
         </div>
     )
 }

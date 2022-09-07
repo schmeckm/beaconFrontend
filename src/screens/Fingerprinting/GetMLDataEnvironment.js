@@ -53,7 +53,7 @@ export default function GetMLDataEnvironment() {
                     toast.info(`Showing result for Environment ${environment.value}`);
                 }
                 else{
-                    toast.error(`An error occured for Environment ${environment.value}`); 
+                    toast.error(data.message); 
                 }
             };
 

@@ -90,7 +90,7 @@ export default function StartStopFingerprinting() {
   useEffect(() => {
     var interval = setInterval(
       () => setCounter((counter) => (counter < 31 ? counter + 1 : counter)),
-      100
+      2000
     );
     return () => clearInterval(interval);
   });
@@ -132,11 +132,11 @@ export default function StartStopFingerprinting() {
         document.getElementById(id).style.background = "#1cf71c";
         setCounter(31);
         document.getElementById(id).disabled = false;
-        toast.info("Button reseted successfully!")
       }
+      toast.info("Zones reseted successfully!")
     }
     else{
-      toast.error("Button reset failed!")
+      toast.error("Zones reset failed!")
     }
        
   }

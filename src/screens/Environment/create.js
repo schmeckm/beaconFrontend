@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { url } from '../../helpers/helpers';
 
 export default function Create() {
@@ -42,9 +43,9 @@ export default function Create() {
                     setWidth('');
                     setHeight('');
                     setDistancePoints(0);
-                    alert("Environment created successfully!")
+                    toast.info("Environment created successfully!")
                 } else {
-                    alert("Oops something went wrong!")
+                    toast.error("Oops something went wrong!")
                 }
             }
         }
@@ -104,6 +105,7 @@ export default function Create() {
                         className="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     )
 }

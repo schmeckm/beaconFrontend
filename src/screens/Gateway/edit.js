@@ -1,6 +1,7 @@
 import React from "react";
 import { url } from "../../helpers/helpers";
 import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Edit() {
   const { id } = useParams();
@@ -34,10 +35,10 @@ export default function Edit() {
       if (response.ok === true) {
         const data = await response.json();
         if (data.success == true) {
-          alert("gateway updated successfully");
+          toast.info("gateway updated successfully");
           return (window.location = window.location.origin + "/#/gatewayList");
         } else {
-          alert("Internal Server Error!");
+          toast.error("Internal Server Error!");
         }
       }
     }
@@ -61,9 +62,9 @@ export default function Edit() {
           setGatewayX(gateway_detail.gatewayX);
           setGatewayY(gateway_detail.gatewayY);
         } else {
-          alert("Oops something went wrong!");
+          toast.error("Oops something went wrong!");
         }
-      } else alert("Response not fetched properly");
+      } else toast.error("Response not fetched properly");
     }
     fetchData();
   }, [id]);
@@ -177,6 +178,7 @@ export default function Edit() {
           </button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 }

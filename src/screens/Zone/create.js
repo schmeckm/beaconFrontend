@@ -1,6 +1,7 @@
 import React from 'react';
 import { url } from '../../helpers/helpers';
 import Select from 'react-select';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function Create() {
 
@@ -25,7 +26,7 @@ export default function Create() {
                         }
                     }))
                 }else {
-                    alert('Oops something went wrong');
+                    toast.error('Oops something went wrong');
                 }
         }
         fetchEnvironment();
@@ -58,9 +59,9 @@ export default function Create() {
                     setText1('');
                     setText2('');
                     setCurrentEnvironment('');
-                    alert("Zone created successfully!")
+                    toast.info("Zone created successfully!")
                 } else {
-                    alert("Oops something went wrong!")
+                    toast.error("Oops something went wrong!")
                 }
             }
         }
@@ -108,6 +109,7 @@ export default function Create() {
                         className="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { toast, ToastContainer } from "react-toastify";
 import { url } from "../../helpers/helpers";
 
 export default function Create() {
@@ -39,9 +40,9 @@ export default function Create() {
           setDescription("");
           setText1("");
           setText2("");
-          alert("Gateway created successfully!");
+          toast.info("Gateway created successfully!");
         } else {
-          alert("Oops something went wrong!");
+          toast.error("Oops something went wrong!");
         }
       }
     }
@@ -195,6 +196,7 @@ export default function Create() {
           </button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 }

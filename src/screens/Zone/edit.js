@@ -1,6 +1,7 @@
 import React from 'react'
 import { url } from '../../helpers/helpers';
 import { useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function Edit() {
     const { id } = useParams();
@@ -32,7 +33,7 @@ export default function Edit() {
                 if (data.success == true) {
                     return window.location = window.location.origin + '/#/zoneList'
                 } else {
-                    alert("Internal Server Error!");
+                    toast.error("Internal Server Error!");
                 }
             }
         }
@@ -55,11 +56,11 @@ export default function Edit() {
                     setText2(zone_detail.text2);
                     setEnvironment(zone_detail.environment);
                 }else{
-                    alert("Oops something went wrong!")
+                    toast.error("Oops something went wrong!")
                 }
 
             }
-            else alert('Response not fetched properly');
+            else toast.error('Response not fetched properly');
         }
         fetchData();
     }, [id])
@@ -106,6 +107,7 @@ export default function Edit() {
                         className="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     )
 }
