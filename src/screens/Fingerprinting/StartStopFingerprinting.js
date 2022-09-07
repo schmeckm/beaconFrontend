@@ -88,13 +88,25 @@ export default function StartStopFingerprinting() {
   }
 
   useEffect(() => {
-    var interval = setInterval(
-      () => setCounter((counter) => (counter < 31 ? counter + 1 : counter)),
-      2000
-    );
+    var interval = setInterval(() => {
+      if (counter < 31) {
+        console.log(counter);
+        if (counter === 30) {
+          if (currentZone) {
+            stopPrinting(currentZone);
+            console.log(currentZone)
+            console.log("30 reached");
+          }
+        }
+        return setCounter(counter + 1);
+      } else {
+        return counter;
+      }
+    }, 2000);
     return () => clearInterval(interval);
   });
   function start(item, id) {
+    setCurrentZone(item.zoneId);
     if (currentZone) {
       document.getElementById(currentactive).style.background = "#05cdfa";
       document.getElementById(id).style.background = "#f2321d";
@@ -126,20 +138,33 @@ export default function StartStopFingerprinting() {
         toast.error(error);
       });
   };
-  const resetZones = () =>{
-    if(table.length > 0){
-      for(let id = 0; id <table.length; id++){
+  const resetZones = () => {
+    if (table.length > 0) {
+      for (let id = 0; id < table.length; id++) {
         document.getElementById(id).style.background = "#1cf71c";
         setCounter(31);
         document.getElementById(id).disabled = false;
       }
-      toast.info("Zones reseted successfully!")
+      toast.info("Zones reseted successfully!");
+    } else {
+      toast.error("Zones reset failed!");
     }
-    else{
-      toast.error("Zones reset failed!")
-    }
-       
-  }
+  };
+  const stopPrinting = async (zone) => {
+    axios
+      .post(url + "fingerprint/stopFingerPrinting", {
+        environment: currentEnvironment?.value,
+        beaconId: currentBeacon.label,
+        zoneId: zone,
+      })
+      .then(function (response) {
+        console.log(response);
+        toast.info("Rssi value counting finished for zone "+zone);
+      })
+      .catch(function (error) {
+        toast.error(error);
+      });
+  };
   return (
     <div className="container create-page-main-section">
       <div className="p-sm-5 create-form-field">
@@ -186,7 +211,9 @@ export default function StartStopFingerprinting() {
             ))}
 
             <div className="mx-auto mt-3 button-position">
-              <button onClick={resetZones} className="reset-btn">Reset</button>
+              <button onClick={resetZones} className="reset-btn">
+                Reset
+              </button>
             </div>
           </div>
         </>
