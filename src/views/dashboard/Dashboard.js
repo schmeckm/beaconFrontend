@@ -20,14 +20,9 @@ const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
 const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
-
-  React.useEffect(()=>{
-    window.location = window.location.origin + '/#/';
-  },[])
-
   return (
     <>
-      {/* <WidgetsDropdown />
+      <WidgetsDropdown />
       <CCard>
         <CCardBody>
           <CRow>
@@ -554,9 +549,9 @@ const Dashboard = () => {
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow> */}
+      </CRow>
     </>
   )
 }
 
-export default Dashboard
+export default Dashboard;

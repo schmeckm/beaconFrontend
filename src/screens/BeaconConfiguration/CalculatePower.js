@@ -87,11 +87,11 @@ export default function CalculatePower() {
                             <Select value={currentGateway} onChange={setCurrentGateway} options={gateways} />
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center create-catagory-btns">
-                        <button onClick={() => window.history.back()} type="button" class="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
-                            class="px-2 fa fa-times" aria-hidden="true"></i></button>
-                        <button type="submit" class="font-weight-bold m-3 py-2 px-4 btn btn-success">Save<i
-                            class="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
+                    <div className="d-flex justify-content-center create-catagory-btns">
+                        <button onClick={() => window.history.back()} type="button" className="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
+                            className="px-2 fa fa-times" aria-hidden="true"></i></button>
+                        <button type="submit" className="font-weight-bold m-3 py-2 px-4 btn btn-success">Executed<i
+                            className="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                     </div>
                 </form>
             </div>

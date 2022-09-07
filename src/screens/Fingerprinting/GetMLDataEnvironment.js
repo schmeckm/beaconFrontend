@@ -1,26 +1,27 @@
 import React from 'react'
-import { CBadge, CCard, CCardBody, CCol, CDataTable } from '@coreui/react';
+import { CCard, CCardBody, CCol, CDataTable } from '@coreui/react';
 import { url } from '../../helpers/helpers';
 import Select from 'react-select'
 import { ExportCSV } from '../../components/ExportCSV';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function GetMLDataEnvironment() {
 
-    const fields = ['#', 'timestamp', 'environment', 'gateway1Mac', 'gateway1Rssi', 'gateway2Mac', 'gateway2Rssi', 'gateway3Mac','gateway3Rssi','beacon', 'zone_id'];
+    const fields = ['Date', 'Time', 'environment', 'gateway1Mac', 'gateway1Rssi', 'gateway2Mac', 'gateway2Rssi', 'gateway3Mac','gateway3Rssi','beacon', 'zone_id'];
     const [environmentList, setEnvironmentList] = React.useState([]);
-    const [environment,setEnvironment] = React.useState("");
+    const [environment,setEnvironment] = React.useState({});
     const [list,setList] = React.useState([]);
 
     React.useEffect(() => {
 
         async function fetchData() {
-            const response = await fetch(url + 'environment/getAllEnvironments', {
+            const response = await fetch(url + '/environment/getAllEnvironments', {
                 method: 'GET',
             })
 
             if (response.ok === true) {
                 const data = await response.json();
+                console.log(data);
                 setEnvironmentList(data.data.map((item, index) => {
                     return {
                         'value': item._id,
@@ -33,21 +34,32 @@ export default function GetMLDataEnvironment() {
     }, [])
 
     function onFilter(){
+        console.log(environment);
         if (environment){
             async function send(){
-                alert(environment.value)
-                const response = await fetch(`http://45.32.153.102:3000/fingerprint/getMLDataByEnvironment  /${environment.value}`);
+                const response = await fetch(url +`fingerprint/getMLDataByEnvironment/${environment.value}`);
                 const data = await response.json();
                 console.log(data)
                 if (data.success == true){
                     let list_data = data.data;
-                    setList(list_data)
+                    const modified_data = [];
+                    for(const item of list_data){
+                        const time = item.timestamp.split('T');
+                        const Date = time[0];
+                        const Time = time[1].slice(0,-1).split('.')[0];
+                        modified_data.push({...item, Date, Time});
+                    }
+                    setList(modified_data);
+                    toast.info(`Showing result for Environment ${environment.value}`);
+                }
+                else{
+                    toast.error(`An error occured for Environment ${environment.value}`); 
                 }
             };
 
             send();
         }else{
-            alert("Please select environment")
+            toast.error("Please select environment")
         }
     }
 
@@ -83,6 +95,7 @@ export default function GetMLDataEnvironment() {
                     </CCardBody>
                 </CCard>
             </CCol>
+            <ToastContainer />
         </section>
     )
 }

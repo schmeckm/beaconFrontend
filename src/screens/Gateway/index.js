@@ -5,7 +5,7 @@ import { url } from '../../helpers/helpers';
 import CustomModal from '../../components/CustomModal';
 
 export default function Index() {
-  const fields = ['#', 'gatewayMac', 'gatewayFree', 'gatewayLoad', 'gatewayX', 'gatewayY', 'action'];
+  const fields = ['#', 'description','gatewayMac', 'gatewayFree', 'gatewayLoad', 'gatewayX', 'gatewayY', 'action'];
   const [gatewayList, setGatewayList] = React.useState([]);
   const [id, setId] = React.useState(null);
   const [modal, setModal] = React.useState(false);
@@ -23,6 +23,7 @@ export default function Index() {
           return {
             '#': index + 1,
             'id': item._id,
+            'description': item.description,
             'gatewayMac': item.gatewayMac,
             'gatewayFree': item.gatewayFree,
             'gatewayLoad': item.gatewayLoad,
@@ -56,6 +57,7 @@ export default function Index() {
               return {
                 '#': index + 1,
                 'id': item._id,
+                'description': item.description,
                 'gatewayMac': item.gatewayMac,
                 'gatewayFree': item.gatewayFree,
                 'gatewayLoad': item.gatewayLoad,
@@ -94,8 +96,8 @@ export default function Index() {
               scopedSlots={{
                 'action': (item) => (
                   <td>
-                    <Link className="mr-2" to={`/edit/gateway/${item.id}`}><i class="fa fa-pencil" aria-hidden="true"></i></Link>
-                    <i style={{ cursor: "pointer" }} onClick={() => showModal(item.id)} class="fa fa-trash" aria-hidden="true"></i>
+                    <Link className="mr-2" to={`/edit/gateway/${item.id}`}><i className="fa fa-pencil" aria-hidden="true"></i></Link>
+                    <i style={{ cursor: "pointer" }} onClick={() => showModal(item.id)} className="fa fa-trash" aria-hidden="true"></i>
                   </td>
                 )
               }

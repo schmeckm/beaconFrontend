@@ -1,7 +1,4 @@
-import { sygnet } from './sygnet'
-import { logo } from './logo'
-import { logoNegative } from './logo-negative'
-
+import { sygnet } from './sygnet';
 import {
   cibSkype,
   cibFacebook,
@@ -45,6 +42,7 @@ import {
   cilArrowTop,
   cilAsterisk,
   cilBan,
+  cilFingerprint,
   cilBasket,
   cilBell,
   cilBold,
@@ -122,6 +120,7 @@ import {
   cilTrash,
   cilUnderline,
   cilUser,
+  cilApps,
   cilUserFemale,
   cilUserFollow,
   cilUserUnfollow,
@@ -132,8 +131,6 @@ import {
 
 export const icons = Object.assign({}, {
   sygnet,
-  logo,
-  logoNegative
 }, {
   cilAlignCenter,
   cilAlignLeft,
@@ -177,6 +174,7 @@ export const icons = Object.assign({}, {
   cilGraph,
   cilHome,
   cilInbox,
+  cilApps,
   cilIndentDecrease,
   cilIndentIncrease,
   cilInputPower,
@@ -184,6 +182,7 @@ export const icons = Object.assign({}, {
   cilJustifyCenter,
   cilJustifyLeft,
   cilLaptop,
+  cilFingerprint,
   cilLayers,
   cilLightbulb,
   cilList,

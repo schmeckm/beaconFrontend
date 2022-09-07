@@ -1,9 +1,10 @@
 import React from 'react'
 import { url } from '../../helpers/helpers';
-
+import { ToastContainer, toast } from 'react-toastify';
 export default function Edit() {
     const [plexValue, setPlexValue] = React.useState('');
     const [cronValue, setCronValue] = React.useState('');
+    const [interval, setInterval] = React.useState('5');
     const [rssiDeleteTime, setRSSIDeleteTime] = React.useState('');
     const [fingerPrintDocuments, setFingerPrintDocuments] = React.useState('');
     const [median, setMedian] = React.useState(false);
@@ -23,10 +24,10 @@ export default function Edit() {
                     setFingerPrintDocuments(settings_detail[0].fingerPrintDocuments);
                     setMedian(settings_detail[0].median);
                 }else{
-                    alert("Oops something went wrong!")
+                    toast.error("Oops something went wrong!")
                 }
             }
-            else alert('Response not fetched properly');
+            else toast.error('Response not fetched properly');
         }
         fetchData();
     }, [])
@@ -49,6 +50,10 @@ export default function Edit() {
             let Median = {
                 "median" : median
             }
+
+            let Interval = {
+                "interval" : interval
+            }
             console.log(median);
             const response = await fetch(url + 'systemSettings/addPlexValue/', {
                 method: 'POST',
@@ -62,7 +67,7 @@ export default function Edit() {
                 if(data.success == true){                    
                   console.log('Plex value successfully updated');
                 }
-                else alert('Internal Server Error');
+                else toast.error('Internal Server Error');
             }
             
             const response1 = await fetch(url + 'systemSettings/addCronValue/', {
@@ -77,7 +82,7 @@ export default function Edit() {
                 if(data.success == true){
                     console.log('Cron value successfully updated');                    
                 }
-                else alert('Internal Server Error');
+                else toast.error('Internal Server Error');
             }
 
             const response2 = await fetch(url + 'systemSettings/rssiDeleteTime/', {
@@ -92,7 +97,7 @@ export default function Edit() {
                 if(data.success == true){
                     console.log('RSSI Delete Time successfully updated');                    
                 }
-                else alert('Internal Server Error');
+                else toast.error('Internal Server Error');
             }
 
             const response3 = await fetch(url + 'systemSettings/addFingerPrintDocuments/', {
@@ -108,7 +113,7 @@ export default function Edit() {
                 if(data.success == true){
                     console.log('Finger Print Documents successfully updated');                    
                 }
-                else alert('Internal Server Error');
+                else toast.error('Internal Server Error');
             }
             
             const response4 = await fetch(url + 'systemSettings/addMedian/', {
@@ -123,9 +128,27 @@ export default function Edit() {
                 const data = await response4.json();
                 if(data.success == true) {
                     console.log('Median Successfully updated');
-                    alert("Values Updated Successfully");
+                    toast.success("Values Updated Successfully");
                 }else {
-                    alert("Internal Server Error!");
+                    toast.error("Internal Server Error!");
+                }
+            }
+
+            const response5 = await fetch(url + '/systemSettings/addGatewayInterval', {
+                method: 'POST',
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(Interval)
+            })
+
+            if (response5.ok === true) {
+                const data = await response5.json();
+                if(data.success == true) {
+                    console.log('Inverval value Successfully updated');
+                    
+                }else {
+                    toast.error("Internal Server Error!");
                 }
             }
         }
@@ -136,44 +159,51 @@ export default function Edit() {
         <div className="container create-page-main-section">
             <form onSubmit={e => handleSubmit(e)}>
                 <div className='p-sm-5 create-form-field'>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Plex Value:<span className='required-label'>*</span></label>
-                        <div class="d-flex align-items-sm-center col-sm-10">
-                            <input required value={plexValue} onChange={e => setPlexValue(e.target.value)} type="text" class="form-control" id="inputPassword" />
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">Plex Value:<span className='required-label'>*</span></label>
+                        <div className="d-flex align-items-sm-center col-sm-10">
+                            <input required value={plexValue} onChange={e => setPlexValue(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Cron Value:<span className='required-label'>*</span></label>
-                        <div class="d-flex align-items-sm-center col-sm-10">
-                            <input required value={cronValue} onChange={e => setCronValue(e.target.value)} type="text" class="form-control" id="inputPassword" />
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">Cron Value:<span className='required-label'>*</span></label>
+                        <div className="d-flex align-items-sm-center col-sm-10">
+                            <input required value={cronValue} onChange={e => setCronValue(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">RSSI Delete Time:<span className='required-label'>*</span></label>
-                        <div class="d-flex align-items-sm-center col-sm-10">
-                            <input required value={rssiDeleteTime} onChange={e => setRSSIDeleteTime(e.target.value)} type="text" class="form-control" id="inputPassword" />
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">RSSI Delete Time:<span className='required-label'>*</span></label>
+                        <div className="d-flex align-items-sm-center col-sm-10">
+                            <input required value={rssiDeleteTime} onChange={e => setRSSIDeleteTime(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Finger Print Documents:<span className='required-label'>*</span></label>
-                        <div class="d-flex align-items-sm-center col-sm-10">
-                            <input required value={fingerPrintDocuments} onChange={e => setFingerPrintDocuments(e.target.value)} type="text" class="form-control" id="inputPassword" />
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">Finger Print Documents:<span className='required-label'>*</span></label>
+                        <div className="d-flex align-items-sm-center col-sm-10">
+                            <input required value={fingerPrintDocuments} onChange={e => setFingerPrintDocuments(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Median:</label>
-                        <div class="d-flex b-0 col-sm-1">
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">Finger Print Interval:<span className='required-label'>*</span></label>
+                        <div className="d-flex align-items-sm-center col-sm-10">
+                            <input required value={interval} onChange={e => setInterval(e.target.value)} type="text" className="form-control" id="inputPassword" />
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label for="inputPassword" className="col-sm-2 col-form-label">Median:</label>
+                        <div className="d-flex b-0 col-sm-1">
                         <input checked={median} type="checkbox" onChange={e => setMedian(!median)} id="inputPassword" />
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center create-catagory-btns">
-                    <button onClick={() => window.location.reload()} type="button" class="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
-                        class="px-2 fa fa-times" aria-hidden="true"></i></button>
-                    <button type="submit" class="font-weight-bold m-3 py-2 px-4 btn btn-success">Save<i
-                        class="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
+                <div className="d-flex justify-content-center create-catagory-btns">
+                    <button onClick={() => window.location.reload()} type="button" className="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
+                        className="px-2 fa fa-times" aria-hidden="true"></i></button>
+                    <button type="submit" className="font-weight-bold m-3 py-2 px-4 btn btn-success">Save<i
+                        className="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     )
 }

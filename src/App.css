@@ -4,6 +4,24 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+.reset-btn{
+  background-color: rgba(242, 44, 41, 0.933);
+  color: white;
+  padding: 8px 20px;
+  border: 1px solid white;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.reset-btn:hover{
+  background-color: white;
+  color: rgba(242, 44, 41, 0.933);
+  border: 1px solid rgba(242, 44, 41, 0.933);
+}
+.reset-btn:active{
+  background-color: red;
+  color: white;
+  border: 1px solid red;
+}
 
 .required-label {
   color: red;
@@ -339,11 +357,11 @@
   margin: 10px auto;
 }
 
-#grid-table .col-md-4 {
-  background-color: green;
+#grid-table .btn-grid{
+  background-color: rgb(28, 247, 28);
   color: white;
   font-weight: bold;
-  border: 1px solid black;
+  border: 1px solid white;
   height: 80px;
   display: -webkit-box;
   display: -ms-flexbox;
