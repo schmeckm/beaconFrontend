@@ -15,7 +15,7 @@ export default function GetMLDataEnvironment() {
     React.useEffect(() => {
 
         async function fetchData() {
-            const response = await fetch(url + '/environment/getAllEnvironments', {
+            const response = await fetch(url + 'environment/getAllEnvironments', {
                 method: 'GET',
             })
 

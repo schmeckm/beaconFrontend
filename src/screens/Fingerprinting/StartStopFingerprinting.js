@@ -94,7 +94,7 @@ export default function StartStopFingerprinting() {
         if (counter === 30) {
           if (currentZone) {
             stopPrinting(currentZone);
-            console.log(currentZone)
+            console.log(currentZone);
             console.log("30 reached");
           }
         }
@@ -102,7 +102,7 @@ export default function StartStopFingerprinting() {
       } else {
         return counter;
       }
-    }, 2000);
+    }, 500);
     return () => clearInterval(interval);
   });
   function start(item, id) {
@@ -159,6 +159,7 @@ export default function StartStopFingerprinting() {
       })
       .then(function (response) {
         console.log(response);
+          document.getElementById(currentZone-1).style.background = "#05cdfa";
         toast.info("Rssi value counting finished for zone "+zone);
       })
       .catch(function (error) {
@@ -209,13 +210,12 @@ export default function StartStopFingerprinting() {
                 {item.zoneId}
               </button>
             ))}
-
-            <div className="mx-auto mt-3 button-position">
+          </div>
+          <div className="mx-auto mt-3 button-position">
               <button onClick={resetZones} className="reset-btn">
                 Reset
               </button>
             </div>
-          </div>
         </>
       )}
     </div>
