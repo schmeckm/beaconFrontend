@@ -64,13 +64,13 @@ export default function Edit() {
             <form onSubmit={e => handleSubmit(e)}>
                 <div className='p-sm-5 create-form-field'>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">BeaconMac:</label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">BeaconMac:</label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input readOnly value={beaconMac} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Description:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Description:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input value={description} onChange={e => setDescription(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>

@@ -74,43 +74,43 @@ export default function Edit() {
             <form onSubmit={e => handleSubmit(e)}>
                 <div className='p-sm-5 create-form-field'>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Name:</label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Name:</label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input readOnly value={name} onChange={e => setName(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Description:</label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Description:</label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input readOnly value={description} onChange={e => setDescription(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Text1:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Text1:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={text1} onChange={e => setText1(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Text2:</label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Text2:</label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input readOnly value={text2} onChange={e => setText2(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Width:</label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Width:</label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input readOnly value={width} onChange={e => setWidth(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Height:</label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Height:</label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input readOnly value={height} onChange={e => setHeight(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Distance Points:</label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Distance Points:</label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input readOnly required value={distance_points} onChange={e => setDistancePoints(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>

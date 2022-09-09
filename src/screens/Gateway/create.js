@@ -54,7 +54,7 @@ export default function Create() {
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="p-sm-5 create-form-field">
           <div className="form-group row">
-            <label for="inputPassword" className="col-sm-2 col-form-label">
+            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
               GatewayMac:<span className="required-label">*</span>
             </label>
             <div className="d-flex align-items-sm-center col-sm-10">
@@ -69,7 +69,7 @@ export default function Create() {
             </div>
           </div>
           <div className="form-group row">
-            <label for="inputPassword" className="col-sm-2 col-form-label">
+            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
               Description:<span className="required-label">*</span>
             </label>
             <div className="d-flex align-items-sm-center col-sm-10">
@@ -84,7 +84,7 @@ export default function Create() {
             </div>
           </div>
           <div className="form-group row">
-            <label for="inputPassword" className="col-sm-2 col-form-label">
+            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
               Text1:<span className="required-label">*</span>
             </label>
             <div className="d-flex align-items-sm-center col-sm-10">
@@ -102,7 +102,7 @@ export default function Create() {
           <div className="form-group row">
             <label
               className="col-sm-2 col-form-label"
-              for="exampleFormControlTextarea1"
+              htmlFor="exampleFormControlTextarea1"
             >
               Text2:<span className="required-label">*</span>
             </label>
@@ -118,7 +118,7 @@ export default function Create() {
             </div>
           </div>
           <div className="form-group row">
-            <label for="inputPassword" className="col-sm-2 col-form-label">
+            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
               Gateway X:<span className="required-label">*</span>
             </label>
             <div className="d-flex align-items-sm-center col-sm-10">
@@ -133,7 +133,7 @@ export default function Create() {
             </div>
           </div>
           <div className="form-group row">
-            <label for="inputPassword" className="col-sm-2 col-form-label">
+            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
               Gateway Y:<span className="required-label">*</span>
             </label>
             <div className="d-flex align-items-sm-center col-sm-10">
@@ -148,7 +148,7 @@ export default function Create() {
             </div>
           </div>
           <div className="form-group row">
-            <label for="inputPassword" className="col-sm-2 col-form-label">
+            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
               Gateway Free:<span className="required-label">*</span>
             </label>
             <div className="d-flex align-items-sm-center col-sm-10">
@@ -163,7 +163,7 @@ export default function Create() {
             </div>
           </div>
           <div className="form-group row">
-            <label for="inputPassword" className="col-sm-2 col-form-label">
+            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
               Gateway Load:<span className="required-label">*</span>
             </label>
             <div className="d-flex align-items-sm-center col-sm-10">

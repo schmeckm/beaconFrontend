@@ -102,7 +102,7 @@ export default function StartStopFingerprinting() {
       } else {
         return counter;
       }
-    }, 500);
+    }, 2000);
     return () => clearInterval(interval);
   });
   function start(item, id) {
