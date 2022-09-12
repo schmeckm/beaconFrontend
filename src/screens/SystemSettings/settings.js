@@ -4,11 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 export default function Edit() {
     const [plexValue, setPlexValue] = React.useState('');
     const [cronValue, setCronValue] = React.useState('');
-    const [interval, setInterval] = React.useState('5');
+    const [gatewayInterval, setGatewayInterval] = React.useState('0');
     const [rssiDeleteTime, setRSSIDeleteTime] = React.useState('');
     const [fingerPrintDocuments, setFingerPrintDocuments] = React.useState('');
     const [median, setMedian] = React.useState(false);
-    
     React.useEffect(() => {
         async function fetchData() {
             const response = await fetch(url + 'systemSettings/getSystemSettings/', {
@@ -23,6 +22,8 @@ export default function Edit() {
                     setRSSIDeleteTime(settings_detail[0].rssiDeleteTime);
                     setFingerPrintDocuments(settings_detail[0].fingerPrintDocuments);
                     setMedian(settings_detail[0].median);
+                    setGatewayInterval(settings_detail[0].gatewayInterval);
+                    console.log(settings_detail);
                 }else{
                     toast.error("Oops something went wrong!")
                 }
@@ -52,7 +53,7 @@ export default function Edit() {
             }
 
             let Interval = {
-                "interval" : interval
+                "gatewayInterval" : gatewayInterval
             }
             console.log(median);
             const response = await fetch(url + 'systemSettings/addPlexValue/', {
@@ -186,7 +187,7 @@ export default function Edit() {
                     <div className="form-group row">
                         <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Finger Print Interval:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
-                            <input required value={interval} onChange={e => setInterval(e.target.value)} type="text" className="form-control" id="inputPassword" />
+                            <input required value={gatewayInterval} onChange={e => setGatewayInterval(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">

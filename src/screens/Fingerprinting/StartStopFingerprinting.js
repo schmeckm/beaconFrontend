@@ -13,6 +13,7 @@ export default function StartStopFingerprinting() {
   const [currentZone, setCurrentZone] = React.useState("");
   const [currentactive, setCurrentActive] = React.useState("");
   const [counter, setCounter] = useState(31);
+  const [gatewayInterval, setGatewayInterval] = React.useState('0');
   React.useEffect(() => {
     async function fetchData() {
       const response = await fetch(url + "dbBeacon/getAllBeacons", {
@@ -88,6 +89,24 @@ export default function StartStopFingerprinting() {
   }
 
   useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(url + 'systemSettings/getSystemSettings/', {
+          method: 'GET',
+      })
+      if (response.ok === true){
+          const data = await response.json();
+          if(data.success == true){
+              const settings_detail = data.data;
+              setGatewayInterval(settings_detail[0].gatewayInterval);
+              console.log(settings_detail);
+          }else{
+              toast.error("Oops something went wrong!")
+          }
+      }
+      else toast.error('Response not fetched properly');
+  }
+  fetchData();
+  const intervalTime = gatewayInterval * 1000;
     var interval = setInterval(() => {
       if (counter < 31) {
         console.log(counter);
@@ -102,7 +121,7 @@ export default function StartStopFingerprinting() {
       } else {
         return counter;
       }
-    }, 2000);
+    }, intervalTime);
     return () => clearInterval(interval);
   });
   function start(item, id) {
