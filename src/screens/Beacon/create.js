@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { url } from '../../helpers/helpers';
 
 export default function Create() {
@@ -27,9 +28,9 @@ export default function Create() {
                 if (data.success == true) {
                     setBeaconMac('');
                     setDescription('');
-                    alert("Beacon created successfully!")
+                    toast.info("Beacon created successfully!")
                 } else {
-                    alert("Oops something went wrong!")
+                    toast.error("Oops something went wrong!")
                 }
             }
         }
@@ -41,13 +42,13 @@ export default function Create() {
             <form onSubmit={e => handleSubmit(e)}>
                 <div className='p-sm-5 create-form-field'>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">BeaconMac:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">BeaconMac:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={beaconMac} onChange={e => setBeaconMac(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Description:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Description:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={description} onChange={e => setDescription(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
@@ -60,6 +61,7 @@ export default function Create() {
                         className="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     )
 }

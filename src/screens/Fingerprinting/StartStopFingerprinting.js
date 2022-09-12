@@ -13,6 +13,7 @@ export default function StartStopFingerprinting() {
   const [currentZone, setCurrentZone] = React.useState("");
   const [currentactive, setCurrentActive] = React.useState("");
   const [counter, setCounter] = useState(31);
+  const [gatewayInterval, setGatewayInterval] = React.useState('0');
   React.useEffect(() => {
     async function fetchData() {
       const response = await fetch(url + "dbBeacon/getAllBeacons", {
@@ -88,13 +89,43 @@ export default function StartStopFingerprinting() {
   }
 
   useEffect(() => {
-    var interval = setInterval(
-      () => setCounter((counter) => (counter < 31 ? counter + 1 : counter)),
-      100
-    );
+    async function fetchData() {
+      const response = await fetch(url + 'systemSettings/getSystemSettings/', {
+          method: 'GET',
+      })
+      if (response.ok === true){
+          const data = await response.json();
+          if(data.success == true){
+              const settings_detail = data.data;
+              setGatewayInterval(settings_detail[0].gatewayInterval);
+              console.log(settings_detail);
+          }else{
+              toast.error("Oops something went wrong!")
+          }
+      }
+      else toast.error('Response not fetched properly');
+  }
+  fetchData();
+  const intervalTime = gatewayInterval * 1000;
+    var interval = setInterval(() => {
+      if (counter < 31) {
+        console.log(counter);
+        if (counter === 30) {
+          if (currentZone) {
+            stopPrinting(currentZone);
+            console.log(currentZone);
+            console.log("30 reached");
+          }
+        }
+        return setCounter(counter + 1);
+      } else {
+        return counter;
+      }
+    }, intervalTime);
     return () => clearInterval(interval);
   });
   function start(item, id) {
+    setCurrentZone(item.zoneId);
     if (currentZone) {
       document.getElementById(currentactive).style.background = "#05cdfa";
       document.getElementById(id).style.background = "#f2321d";
@@ -126,20 +157,34 @@ export default function StartStopFingerprinting() {
         toast.error(error);
       });
   };
-  const resetZones = () =>{
-    if(table.length > 0){
-      for(let id = 0; id <table.length; id++){
+  const resetZones = () => {
+    if (table.length > 0) {
+      for (let id = 0; id < table.length; id++) {
         document.getElementById(id).style.background = "#1cf71c";
         setCounter(31);
         document.getElementById(id).disabled = false;
-        toast.info("Button reseted successfully!")
       }
+      toast.info("Zones reseted successfully!");
+    } else {
+      toast.error("Zones reset failed!");
     }
-    else{
-      toast.error("Button reset failed!")
-    }
-       
-  }
+  };
+  const stopPrinting = async (zone) => {
+    axios
+      .post(url + "fingerprint/stopFingerPrinting", {
+        environment: currentEnvironment?.value,
+        beaconId: currentBeacon.label,
+        zoneId: zone,
+      })
+      .then(function (response) {
+        console.log(response);
+          document.getElementById(currentZone-1).style.background = "#05cdfa";
+        toast.info("Rssi value counting finished for zone "+zone);
+      })
+      .catch(function (error) {
+        toast.error(error);
+      });
+  };
   return (
     <div className="container create-page-main-section">
       <div className="p-sm-5 create-form-field">
@@ -184,11 +229,12 @@ export default function StartStopFingerprinting() {
                 {item.zoneId}
               </button>
             ))}
-
-            <div className="mx-auto mt-3 button-position">
-              <button onClick={resetZones} className="reset-btn">Reset</button>
-            </div>
           </div>
+          <div className="mx-auto mt-3 button-position">
+              <button onClick={resetZones} className="reset-btn">
+                Reset
+              </button>
+            </div>
         </>
       )}
     </div>

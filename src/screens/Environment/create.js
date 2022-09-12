@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { url } from '../../helpers/helpers';
 
 export default function Create() {
@@ -42,9 +43,9 @@ export default function Create() {
                     setWidth('');
                     setHeight('');
                     setDistancePoints(0);
-                    alert("Environment created successfully!")
+                    toast.info("Environment created successfully!")
                 } else {
-                    alert("Oops something went wrong!")
+                    toast.error("Oops something went wrong!")
                 }
             }
         }
@@ -55,43 +56,43 @@ export default function Create() {
             <form onSubmit={e => handleSubmit(e)}>
                 <div className='p-sm-5 create-form-field'>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Name:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Name:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={name} onChange={e => setName(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Description:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Description:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={description} onChange={e => setDescription(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Text1:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Text1:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={text1} onChange={e => setText1(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Text2:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Text2:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={text2} onChange={e => setText2(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Width:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Width:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={width} onChange={e => setWidth(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Height:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Height:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={height} onChange={e => setHeight(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Distance Points:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Distance Points:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={distance_points} onChange={e => setDistancePoints(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
@@ -104,6 +105,7 @@ export default function Create() {
                         className="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     )
 }

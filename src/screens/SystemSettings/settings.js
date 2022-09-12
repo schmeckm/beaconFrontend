@@ -4,11 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 export default function Edit() {
     const [plexValue, setPlexValue] = React.useState('');
     const [cronValue, setCronValue] = React.useState('');
-    const [interval, setInterval] = React.useState('5');
+    const [gatewayInterval, setGatewayInterval] = React.useState('0');
     const [rssiDeleteTime, setRSSIDeleteTime] = React.useState('');
     const [fingerPrintDocuments, setFingerPrintDocuments] = React.useState('');
     const [median, setMedian] = React.useState(false);
-    
     React.useEffect(() => {
         async function fetchData() {
             const response = await fetch(url + 'systemSettings/getSystemSettings/', {
@@ -23,6 +22,8 @@ export default function Edit() {
                     setRSSIDeleteTime(settings_detail[0].rssiDeleteTime);
                     setFingerPrintDocuments(settings_detail[0].fingerPrintDocuments);
                     setMedian(settings_detail[0].median);
+                    setGatewayInterval(settings_detail[0].gatewayInterval);
+                    console.log(settings_detail);
                 }else{
                     toast.error("Oops something went wrong!")
                 }
@@ -52,7 +53,7 @@ export default function Edit() {
             }
 
             let Interval = {
-                "interval" : interval
+                "gatewayInterval" : gatewayInterval
             }
             console.log(median);
             const response = await fetch(url + 'systemSettings/addPlexValue/', {
@@ -160,37 +161,37 @@ export default function Edit() {
             <form onSubmit={e => handleSubmit(e)}>
                 <div className='p-sm-5 create-form-field'>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Plex Value:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Plex Value:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={plexValue} onChange={e => setPlexValue(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Cron Value:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Cron Value:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={cronValue} onChange={e => setCronValue(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">RSSI Delete Time:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">RSSI Delete Time:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={rssiDeleteTime} onChange={e => setRSSIDeleteTime(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Finger Print Documents:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Finger Print Documents:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
                             <input required value={fingerPrintDocuments} onChange={e => setFingerPrintDocuments(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Finger Print Interval:<span className='required-label'>*</span></label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Finger Print Interval:<span className='required-label'>*</span></label>
                         <div className="d-flex align-items-sm-center col-sm-10">
-                            <input required value={interval} onChange={e => setInterval(e.target.value)} type="text" className="form-control" id="inputPassword" />
+                            <input required value={gatewayInterval} onChange={e => setGatewayInterval(e.target.value)} type="text" className="form-control" id="inputPassword" />
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label for="inputPassword" className="col-sm-2 col-form-label">Median:</label>
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Median:</label>
                         <div className="d-flex b-0 col-sm-1">
                         <input checked={median} type="checkbox" onChange={e => setMedian(!median)} id="inputPassword" />
                         </div>

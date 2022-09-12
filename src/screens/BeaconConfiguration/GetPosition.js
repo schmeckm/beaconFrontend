@@ -4,6 +4,7 @@ import Select from 'react-select'
 import moment from 'moment';
 
 import { CCard, CCardBody, CCol, CDataTable } from '@coreui/react';
+import { toast, ToastContainer } from 'react-toastify';
 export default function GetPosition() {
     const fields = ['#', 'beaconMac', 'positionX', 'positionY', 'createdAt'];
     const [beacons, setBeacons] = React.useState([]);
@@ -52,6 +53,7 @@ export default function GetPosition() {
                 if (response.ok == true) {
                     const data = await response.json();
                     if (data.success == true) {
+                        console.log(data);
                         setList(data.data.map((item, index) => {
                             return {
                                 '#': index + 1,
@@ -64,12 +66,12 @@ export default function GetPosition() {
                         }))
                     }
                 } else {
-                    alert("Oops something went wrong!");
+                    toast.error("Oops something went wrong!");
                 }
             };
             send()
         } else {
-            alert("Please select beacon");
+            toast.error("Please select beacon");
         }
     }
 
@@ -120,6 +122,7 @@ export default function GetPosition() {
                 </CCard>
             </CCol>
         </div>
+        <ToastContainer />
     </div>
     )
 }
