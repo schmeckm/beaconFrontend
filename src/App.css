@@ -28,6 +28,29 @@
   color: white;
   border: 1px solid red;
 }
+.observation-table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  background-color: aliceblue;
+  font-size: 14px;
+  width: 100%;
+  margin-top: 50px;
+}
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  font-weight: bold;
+  padding: 8px;
+}
+td{
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 
 .required-label {
   color: red;

@@ -2,7 +2,7 @@ import { url } from '../../helpers/helpers';
 import React from 'react'
 import Select from 'react-select'
 import { ToastContainer, toast } from 'react-toastify';
-
+import axios from 'axios';
 export default function CalculatePower() {
     const [beacons, setBeacons] = React.useState([]);
     const [currentBeacon, setCurrentBeacon] = React.useState("");
@@ -47,29 +47,24 @@ export default function CalculatePower() {
     }, [])
 
     function submit(e) {
-        e.preventDefault();
-
+        e.preventDefault(); 
         if (currentBeacon && currentGateway) {
+            const dataSend = {
+                beaconMac : currentBeacon.label,
+                gatewayMac : currentGateway.label,
+            }
             async function send() {
-                const response = await fetch(url + 'beacon/calculateTxPower', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        beaconMac : currentBeacon,
-                        gatewayMac : currentGateway
-                    })
-                });
-
-                if (response.ok == true) {
-                    const data = await response.json();
-                    if(data.success == true){
-                        toast.info("data fetch successfully!");
-                        console.log(data);
-                        console.log(currentBeacon);
-                        console.log(currentGateway);
+                const response = await axios.post(url + 'beacon/calculateTxPower',dataSend);
+                console.log("beacon: ",currentBeacon.label);
+                console.log("gateway",currentGateway.label);
+                console.log(response);
+                if (response.status == 200) {
+                    const data = await response.data;
+                        toast.info(data.data.message);
+                        console.log(data.data.observations);
                         setObservations(data.data.observations)
-                    }
                 } else {
-                    toast.error("Oops something went wrong!");
+                    toast.error(response.data.data.message);
                 }
             };
             send()
@@ -95,22 +90,26 @@ export default function CalculatePower() {
                     <div className="d-flex justify-content-center create-catagory-btns">
                         <button onClick={() => window.history.back()} type="button" className="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
                             className="px-2 fa fa-times" aria-hidden="true"></i></button>
-                        <button type="submit" className="font-weight-bold m-3 py-2 px-4 btn btn-success">Executed<i
+                        <button type="submit" className="font-weight-bold m-3 py-2 px-4 btn btn-success">Execute<i
                             className="px-2 fa fa-floppy-o" aria-hidden="true"></i></button>
                     </div>
                 </form>
             </div>
 
-            {observations.length > 0 && <table>
+            {observations.length > 0 && <table className='observation-table'>
                 <thead>
+                    <tr>
                     <th>#</th>
-                    <th>Observation</th>
+                    <th>Observations</th>
+                    </tr>
                 </thead>
 
+                <tbody>
                 {observations.map((item,index) => <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{item}</td>
                 </tr>)}
+                </tbody>
                 </table>}
                 <ToastContainer />
         </div>

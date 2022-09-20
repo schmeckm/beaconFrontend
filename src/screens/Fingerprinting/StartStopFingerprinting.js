@@ -3,7 +3,10 @@ import Select from "react-select";
 import { url } from "src/helpers/helpers";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import { CCard, CCardBody, CCol, CDataTable } from "@coreui/react";
 export default function StartStopFingerprinting() {
+  const fields = ['_id','beaconId', 'environment'];
+  const fieldsZones = ['_id', 'id','startTime', 'endTime'];
   const [environments, setEnvironments] = React.useState([]);
   const [currentEnvironment, setCurrentEnvironment] = React.useState("");
   const [beacons, setBeacons] = React.useState([]);
@@ -14,6 +17,8 @@ export default function StartStopFingerprinting() {
   const [currentactive, setCurrentActive] = React.useState("");
   const [counter, setCounter] = useState(31);
   const [gatewayInterval, setGatewayInterval] = React.useState('0');
+  const [allFingerPrintings, setAllFingerPrintings] = useState([]);
+  const [zoneDetails, setZoneDetails] = useState([]);
   React.useEffect(() => {
     async function fetchData() {
       const response = await fetch(url + "dbBeacon/getAllBeacons", {
@@ -74,6 +79,7 @@ export default function StartStopFingerprinting() {
       }
     }
     fetchZone();
+
   }, []);
 
   function changeEnvironment(value) {
@@ -86,6 +92,14 @@ export default function StartStopFingerprinting() {
     });
 
     setTable(updated_arr);
+    const getAllFingerprints = async (currentEnvironmentValue) =>{
+      const response = await axios.get(url+`fingerprint/getAllFingerPrinting/${currentEnvironmentValue.value}`);
+      setAllFingerPrintings(response?.data?.data);
+      setZoneDetails(response.data.data[0].zone_id);
+    }
+    if(value){
+      getAllFingerprints(value);
+    }
   }
 
   useEffect(() => {
@@ -235,8 +249,48 @@ export default function StartStopFingerprinting() {
                 Reset
               </button>
             </div>
+            
+            <CCol xs="12" lg="12">
+                <CCard>
+                <h3 className="text-center mt-2">Environment Details</h3>
+                    <CCardBody>
+                        <CDataTable
+                            items={allFingerPrintings}
+                            fields={fields}
+                            columnFilter
+                            tableFilter
+                            itemsPerPageSelect
+                            itemsPerPage={5}
+                            hover
+                            sorter
+                            pagination
+                        />
+                    </CCardBody>
+                </CCard>
+            </CCol>
+
+            <CCol xs="12" lg="12">
+                <CCard>
+                <h3 className="text-center mt-2">Zone Details of Current Environment</h3>
+                    <CCardBody>
+                        <CDataTable
+                            items={zoneDetails}
+                            fields={fieldsZones}
+                            columnFilter
+                            tableFilter
+                            itemsPerPageSelect
+                            itemsPerPage={5}
+                            hover
+                            sorter
+                            pagination
+                        />
+                    </CCardBody>
+                </CCard>
+            </CCol>
         </>
       )}
+
+
     </div>
   );
 }
