@@ -19,13 +19,13 @@ export default function Index() {
 
       if (response.ok === true) {
         const data = await response.json();
+        console.log(data.data);
         setZoneList(data.data.map((item, index) => {
           return {
             '#': index + 1,
-            'id': item._id,
-            'zoneId': item.zoneId,
-            'description': item.description,
-            'environment': item.environment
+            'zoneId': item.zone_ids.zoneId,
+            'description': item.zone_ids.description,
+            'environment': item.environments.description
           }
         }))
       }

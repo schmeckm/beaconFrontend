@@ -28,6 +28,13 @@
   color: white;
   border: 1px solid red;
 }
+.median-value{
+  background-color: #020230;
+  color: white;
+  font-weight: bold;
+  padding: 7px 14px;
+  border-radius: 3px;
+}
 .observation-table {
   font-family: arial, sans-serif;
   border-collapse: collapse;

@@ -1,5 +1,5 @@
 import { url } from '../../helpers/helpers';
-import React from 'react'
+import React, { useState } from 'react'
 import Select from 'react-select'
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
@@ -9,6 +9,7 @@ export default function CalculatePower() {
     const [gateways, setGateways] = React.useState([]);
     const [currentGateway, setCurrentGateway] = React.useState("");
     const [observations,setObservations] = React.useState([]);
+    const [medianValue, setMedianValue] = useState("");
     React.useEffect(() => {
         async function fetchData() {
             const response = await fetch(url + 'dbBeacon/getAllBeacons', {
@@ -63,6 +64,7 @@ export default function CalculatePower() {
                         toast.info(data.data.message);
                         console.log(data.data.observations);
                         setObservations(data.data.observations)
+                        setMedianValue(data.data.value);
                 } else {
                     toast.error(response.data.data.message);
                 }
@@ -86,6 +88,12 @@ export default function CalculatePower() {
                             <label>Gateway</label>
                             <Select value={currentGateway} onChange={setCurrentGateway} options={gateways} />
                         </div>
+                        {
+                            medianValue && 
+                            <div className='col-md-4 form-group d-flex justify-content-center align-items-center'>
+                            <p className='mb-0 mt-4 median-value'>Median value: {parseFloat(medianValue).toFixed(3)}</p>
+                        </div>
+                        }
                     </div>
                     <div className="d-flex justify-content-center create-catagory-btns">
                         <button onClick={() => window.history.back()} type="button" className="font-weight-bold m-3 py-2 px-4 btn btn-danger">Cancel<i
