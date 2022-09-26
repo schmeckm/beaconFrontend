@@ -5,7 +5,7 @@ import { url } from '../../helpers/helpers';
 import CustomModal from '../../components/CustomModal';
 
 export default function Index() {
-  const fields = ['#', 'zoneId','environment','description','action'];
+  const fields = ['zoneId','environment','description','action'];
   const [zoneList, setZoneList] = React.useState([]);
   const [id, setId] = React.useState(null);
   const [modal, setModal] = React.useState(false);
@@ -22,7 +22,6 @@ export default function Index() {
         console.log(data.data);
         setZoneList(data.data.map((item, index) => {
           return {
-            '#': index + 1,
             'zoneId': item.zone_ids.zoneId,
             'description': item.zone_ids.description,
             'environment': item.environments.description

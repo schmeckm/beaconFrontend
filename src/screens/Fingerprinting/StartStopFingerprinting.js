@@ -65,14 +65,15 @@ export default function StartStopFingerprinting() {
 
       if (response.ok === true) {
         const data = await response.json();
+        console.log(data);
         setZones(
           data.data.map((item, index) => {
             return {
               "#": index + 1,
               id: item._id,
-              zoneId: item.zoneId,
-              description: item.description,
-              environment: item.environment,
+              zoneId: item.zone_ids.zoneId,
+              description: item.zone_ids.description,
+              environment: item.environments.description,
             };
           })
         );
@@ -84,9 +85,11 @@ export default function StartStopFingerprinting() {
 
   function changeEnvironment(value) {
     setCurrentEnvironment(value);
+    console.log(zones[0].environment);
+    console.log(value.label);
     let updated_arr = [];
     zones.map((item) => {
-      if (item.environment == value.value) {
+      if (item.environment == value.label) {
         updated_arr.push(item);
       }
     });
@@ -112,7 +115,6 @@ export default function StartStopFingerprinting() {
           if(data.success == true){
               const settings_detail = data.data;
               setGatewayInterval(settings_detail[0].gatewayInterval);
-              console.log(settings_detail);
           }else{
               toast.error("Oops something went wrong!")
           }
@@ -157,6 +159,9 @@ export default function StartStopFingerprinting() {
   }
 
   const startPrinting = async (zone) => {
+    console.log(currentEnvironment.value);
+    console.log(currentBeacon.label);
+    console.log(zone);
     axios
       .post(url + "fingerprint/startFingerPrinting", {
         environment: currentEnvironment?.value,
@@ -249,25 +254,6 @@ export default function StartStopFingerprinting() {
                 Reset
               </button>
             </div>
-            
-            <CCol xs="12" lg="12">
-                <CCard>
-                <h3 className="text-center mt-2">Environment Details</h3>
-                    <CCardBody>
-                        <CDataTable
-                            items={allFingerPrintings}
-                            fields={fields}
-                            columnFilter
-                            tableFilter
-                            itemsPerPageSelect
-                            itemsPerPage={5}
-                            hover
-                            sorter
-                            pagination
-                        />
-                    </CCardBody>
-                </CCard>
-            </CCol>
 
             <CCol xs="12" lg="12">
                 <CCard>
