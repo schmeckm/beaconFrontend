@@ -67,7 +67,13 @@ tr:nth-child(even) {
   display: block;
   margin: 0 auto;
 }
-
+.rssi-style{
+  margin: 30px;
+}
+.loading-style{
+  margin-left: 40%;
+  margin-top:180px;
+}
 .create-page-main-section .create-form-field {
   background-color: white;
 }

@@ -5,8 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import { CCard, CCardBody, CCol, CDataTable } from "@coreui/react";
 export default function StartStopFingerprinting() {
-  const fields = ['_id','beaconId', 'environment'];
-  const fieldsZones = ['_id', 'id','startTime', 'endTime'];
+  const fieldsZones = ['id','startTime', 'endTime'];
   const [environments, setEnvironments] = React.useState([]);
   const [currentEnvironment, setCurrentEnvironment] = React.useState("");
   const [beacons, setBeacons] = React.useState([]);

@@ -54,6 +54,7 @@ export default function GetPosition() {
                     const data = await response.json();
                     if (data.success == true) {
                         console.log(data);
+                        console.log(start);
                         setList(data.data.map((item, index) => {
                             return {
                                 '#': index + 1,
