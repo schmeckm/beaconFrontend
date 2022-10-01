@@ -87,26 +87,26 @@ const Dashboard = () => {
                   duration: 20000,
                   refresh: 2000,
                   delay: 2000,
-                  // onRefresh: chart => {
-                  //   const now = Date.now();
-                  //   if (firstBeacon) {
-                  //     for (const i of firstBeacon) {
-                  //       chart.data.datasets[0].data.push({
-                  //         x: now,
-                  //         y:i.rssi,
-                  //       });
-                  //     }
-                  //   }
-                  //   if (secondBeacon) {
-                  //     for (const i of secondBeacon) {
-                  //       chart.data.datasets[1].data.push({
-                  //         x: now,
-                  //         y: i.rssi,
-                  //       })
-                  //     }
-                  //   }
-                  //   ;
-                  // }
+                  onRefresh: chart => {
+                    const now = Date.now();
+                    if (firstBeacon) {
+                      for (const i of firstBeacon) {
+                        chart.data.datasets[0].data.push({
+                          x: now,
+                          y:i.rssi,
+                        });
+                      }
+                    }
+                    if (secondBeacon) {
+                      for (const i of secondBeacon) {
+                        chart.data.datasets[1].data.push({
+                          x: now,
+                          y: i.rssi,
+                        })
+                      }
+                    }
+                    ;
+                  }
                 }
               },
               y: {
