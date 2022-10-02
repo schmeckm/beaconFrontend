@@ -90,6 +90,7 @@ const Dashboard = () => {
                       }
                     }
                     ;
+                    chart.update("quiet")
                   }
                 }
               },
